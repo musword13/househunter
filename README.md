@@ -1,95 +1,91 @@
-# 湖芯AIT — 賞屋日誌
+# 賞屋獵人 · 湖芯AIT
 
-一個純 HTML / CSS / JS 的單頁靜態網站，可直接部署到 Zeabur 或任何靜態主機。
+精品住宅策展平台 — 純靜態 HTML/CSS/JS，零依賴，可直接部署到 Zeabur。
 
 ---
 
 ## 📁 專案結構
 
 ```
-huxin-ait/
-├── index.html     ← 主頁面（全部程式碼在這裡）
-├── zbpack.json    ← Zeabur 部署設定
-└── README.md      ← 本說明文件
+huxin-v2/
+├── index.html     ← Explore 主頁（建案列表）
+├── diary.html     ← 賞屋日誌詳情頁（湖芯AIT）
+├── zbpack.json    ← Zeabur 靜態部署設定
+└── README.md
 ```
 
 ---
 
-## 🚀 部署流程：GitHub → Zeabur
+## ✅ 已實作功能
 
-### Step 1：在 GitHub 建立儲存庫
-
-1. 前往 [github.com](https://github.com) 並登入
-2. 右上角點 **「+」→「New repository」**
-3. 填入：
-   - Repository name：`huxin-ait`（或任意名稱）
-   - 選擇 **Public** 或 **Private**
-   - **不要**勾選「Add a README file」（我們自己已經有了）
-4. 點 **「Create repository」**
+| 功能 | 說明 |
+|---|---|
+| 📸 Lightbox 相簿 | 點擊任何照片 → 全螢幕瀏覽，左右切換，縮圖列，鍵盤方向鍵 |
+| 🗺 地址點擊開 Map | 點擊地址 → Modal 顯示 Google Maps 嵌入圖，並可直接開啟 Google Maps |
+| 🏠 格局圖展示 | 平面圖獨立展示區塊，點擊可進入 Lightbox 放大 |
+| 🔗 頁面切換 | Explore ↔ Diary 雙頁互連，底部導覽列同步 active 狀態 |
+| ❤️ 互動按讚 | 愛心按讚計數動畫 |
+| 📌 收藏建案 | Explore 頁每個建案卡片可收藏（書籤圖示） |
 
 ---
 
-### Step 2：上傳程式碼到 GitHub
+## 🚀 部署：GitHub → Zeabur
 
-#### 方法 A：網頁直接上傳（最簡單）
+### Step 1：建立 GitHub 儲存庫
 
-1. 進入剛建立的空白 repo 頁面
-2. 點 **「uploading an existing file」**（或拖曳上傳按鈕）
-3. 把 `index.html`、`zbpack.json`、`README.md` 全部拖曳進去
-4. 捲到底部，Commit message 填 `Initial commit`
-5. 點 **「Commit changes」** ✅
+1. 前往 [github.com](https://github.com) → 右上角 `+` → `New repository`
+2. Repository name 填 `huxin-v2`（或任意名稱）
+3. 選 Public 或 Private，**不要**勾選 Add README
+4. 點 `Create repository`
 
-#### 方法 B：用 Git 指令（進階）
+### Step 2：上傳檔案
 
+**方法 A：網頁拖曳上傳（最簡單）**
+1. 進入空白 repo 頁面，點 `uploading an existing file`
+2. 把 `index.html`、`diary.html`、`zbpack.json`、`README.md` 一起拖曳上去
+3. Commit message 填 `feat: initial release`，點 `Commit changes`
+
+**方法 B：Git 指令**
 ```bash
-# 1. 初始化本地 Git
-cd huxin-ait
+cd huxin-v2
 git init
 git add .
-git commit -m "Initial commit"
-
-# 2. 連結到 GitHub（把 YOUR_USERNAME 換成你的帳號）
-git remote add origin https://github.com/YOUR_USERNAME/huxin-ait.git
+git commit -m "feat: initial release"
+git remote add origin https://github.com/YOUR_USERNAME/huxin-v2.git
 git branch -M main
 git push -u origin main
 ```
 
-如果是第一次用 Git，先安裝：[git-scm.com/downloads](https://git-scm.com/downloads)
+### Step 3：Zeabur 部署
+
+1. 前往 [zeabur.com](https://zeabur.com) → 用 GitHub 登入
+2. `New Project` → `Deploy from GitHub` → 選 `huxin-v2`
+3. Zeabur 自動偵測為靜態網站，點 `Deploy`
+4. 完成後取得網址，例如：`https://huxin-v2.zeabur.app`
+
+> 每次 `git push` 後，Zeabur 自動重新部署，無需手動操作。
 
 ---
 
-### Step 3：在 Zeabur 部署
+## 🔄 更換格局圖片
 
-1. 前往 [zeabur.com](https://zeabur.com) 並登入（可用 GitHub 帳號登入）
-2. 點 **「New Project」**
-3. 選 **「Deploy from GitHub」**
-4. 授權 Zeabur 存取你的 GitHub，選擇 `huxin-ait` repo
-5. Zeabur 會自動偵測為靜態網站
-6. 點 **「Deploy」**
-7. 部署完成後，Zeabur 會給你一個網址，例如：
-   `https://huxin-ait.zeabur.app`
+在 `diary.html` 搜尋 `A1 戶型平面圖`，把對應 `<img src="...">` 的 URL 換成你自己的圖片路徑即可。
 
----
-
-## 🔄 之後更新內容
-
-每次修改 `index.html` 後，重新上傳到 GitHub（或 `git push`），
-Zeabur 會**自動重新部署**，無需手動操作。
+建議將圖片放到專案根目錄，例如 `floorplan-a1.jpg`，然後改為：
+```html
+src="floorplan-a1.jpg"
+```
 
 ---
 
 ## 🛠 本地預覽
 
-直接用瀏覽器開啟 `index.html` 即可，不需要任何伺服器。
-
 ```bash
-open index.html   # macOS
-start index.html  # Windows
+# macOS
+open index.html
+
+# Windows
+start index.html
 ```
 
----
-
-## 📌 注意事項
-
-- 圖片使用外部 CDN 連結，若需換成自己的圖片，請將圖片放入專案並修改 `src` 路徑
-- 此專案無需 Node.js、npm 或任何建置步驟
+不需要安裝任何 Node.js 或建置工具。
