@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="湖芯AIT 賞屋日誌 — 台北內湖星雲重劃區精品住宅" />
+  <title>湖芯AIT | 賞屋日誌</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --surface: #f8f8f7;
+      --surface-high: #efefed;
+      --border: rgba(0,0,0,0.08);
+      --muted: #6b6b6b;
+      --font-headline: 'Manrope', sans-serif;
+      --font-body: 'Work Sans', sans-serif;
+      --nav-h: 64px;
+      --bottom-nav-h: 72px;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--white);
+      color: var(--black);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    .anim-fade-up  { animation: fadeUp 0.6s ease both; }
+    .anim-fade-in  { animation: fadeIn 0.5s ease both; }
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+    .delay-4 { animation-delay: 0.4s; }
+    .delay-5 { animation-delay: 0.5s; }
+
+    /* ── TopAppBar ── */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: rgba(10,10,10,0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .top-bar__logo {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--white);
+      letter-spacing: -0.03em;
+    }
+    .top-bar__actions { display: flex; gap: 20px; }
+    .top-bar__actions .material-symbols-outlined {
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      transition: color 0.2s;
+      font-size: 22px;
+    }
+    .top-bar__actions .material-symbols-outlined:hover { color: var(--white); }
+
+    /* ── Main Content ── */
+    main {
+      padding-top: calc(var(--nav-h) + 24px);
+      padding-bottom: calc(var(--bottom-nav-h) + 24px);
+      max-width: 680px;
+      margin: 0 auto;
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+
+    /* ── Author Row ── */
+    .author-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .author-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--black);
+      flex-shrink: 0;
+    }
+    .author-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .author-name { font-weight: 700; font-size: 0.875rem; }
+    .author-title {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .author-time { margin-left: auto; font-size: 0.75rem; color: var(--muted); }
+
+    /* ── Post Title ── */
+    .post-title {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: clamp(1.6rem, 5vw, 2.2rem);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+    .post-subtitle {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── Photo Grid ── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 8px;
+      margin: 24px 0;
+    }
+    .photo-grid__hero {
+      grid-column: 1 / -1;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      border-radius: 10px;
+      background: var(--surface-high);
+    }
+    .photo-grid__hero img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(1);
+      transition: filter 0.7s ease;
+    }
+    .photo-grid__hero:hover img { filter: grayscale(0); }
+
+    .photo-tile {
+      overflow: hidden;
+      border-radius: 8px;
+      background: var(--surface-high);
+      aspect-ratio: 1/1;
+    }
+    .photo-tile img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .photo-tile--more {
+      position: relative;
+      cursor: pointer;
+    }
+    .photo-tile--more img { opacity: 0.5; }
+    .photo-tile--more__overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.45);
+      color: var(--white);
+      font-family: var(--font-headline);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    /* ── Section Block ── */
+    .section-block { margin-bottom: 40px; }
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--black);
+      font-family: var(--font-body);
+      margin-bottom: 14px;
+    }
+
+    /* ── Timeline ── */
+    .timeline { display: flex; flex-direction: column; }
+    .timeline-item {
+      display: flex;
+      gap: 16px;
+      padding-bottom: 24px;
+    }
+    .timeline-item:last-child { padding-bottom: 0; }
+    .timeline-icon-col {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+    .timeline-icon-col .material-symbols-outlined { font-size: 20px; color: var(--black); }
+    .timeline-line {
+      flex: 1;
+      width: 1px;
+      background: var(--border);
+      min-height: 24px;
+    }
+    .timeline-item:last-child .timeline-line { display: none; }
+    .timeline-content { flex: 1; }
+    .timeline-heading { font-weight: 700; font-size: 0.875rem; margin-bottom: 2px; }
+    .timeline-sub { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── Location Primary ── */
+    .location-primary {
+      font-weight: 500;
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+    .location-primary strong { font-weight: 800; }
+
+    /* ── Bento Grid ── */
+    .bento-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 500px) {
+      .bento-grid { grid-template-columns: 1fr; }
+    }
+
+    .bento-card {
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .bento-card--dark {
+      background: var(--black);
+      border-color: transparent;
+      color: var(--white);
+    }
+    .bento-card__label {
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      margin-bottom: 14px;
+    }
+    .bento-card--dark .bento-card__label { color: rgba(255,255,255,0.45); }
+    .bento-card__label:not(.bento-card--dark .bento-card__label) { color: var(--black); }
+
+    .bento-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .bento-list li {
+      display: flex; align-items: flex-start; gap: 8px;
+      font-size: 0.85rem; line-height: 1.4;
+    }
+    .bento-list li .material-symbols-outlined { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    .floor-plan-size {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: -0.02em;
+    }
+    .floor-plan-sub { font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 2px; }
+    .floor-plan-tags {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      margin-top: 14px;
+    }
+    .floor-plan-tags span {
+      font-size: 0.7rem; font-weight: 500;
+      padding: 4px 10px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ── Chips ── */
+    .chip-list { display: flex; flex-wrap: wrap; gap: 8px; }
+    .chip {
+      padding: 6px 14px;
+      background: var(--surface);
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--black);
+    }
+
+    /* ── Community Text ── */
+    .community-text {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+    .community-text strong { color: var(--black); font-weight: 600; }
+
+    /* ── Action Bar ── */
+    .action-bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      margin-top: 8px;
+    }
+    .action-btn {
+      display: flex; align-items: center; gap: 6px;
+      cursor: pointer;
+      color: var(--muted);
+      transition: color 0.2s;
+      background: none; border: none;
+      font-family: var(--font-body);
+    }
+    .action-btn:hover { color: var(--black); }
+    .action-btn .material-symbols-outlined { font-size: 20px; }
+    .action-btn span.count { font-size: 0.75rem; }
+    .action-btn--send { margin-left: auto; }
+
+    /* ── Divider ── */
+    .divider {
+      height: 1px; background: var(--border);
+      margin: 32px 0;
+    }
+
+    /* ── Signature Footer ── */
+    .sig-footer {
+      text-align: center;
+      padding: 40px 0 16px;
+    }
+    .sig-footer__name {
+      font-family: var(--font-headline);
+      font-weight: 800;
+      font-size: 1.1rem;
+      margin-bottom: 8px;
+    }
+    .sig-footer__copy {
+      font-size: 0.7rem;
+      color: rgba(0,0,0,0.35);
+      margin-bottom: 12px;
+    }
+    .sig-footer__links {
+      display: flex; justify-content: center; gap: 16px;
+    }
+    .sig-footer__links a {
+      font-size: 0.7rem;
+      color: rgba(0,0,0,0.3);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .sig-footer__links a:hover { color: var(--black); }
+
+    /* ── Bottom Nav ── */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 100;
+      height: var(--bottom-nav-h);
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 8px 0 env(safe-area-inset-bottom, 0);
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border);
+    }
+    .nav-item {
+      display: flex; flex-direction: column; align-items: center; gap: 2px;
+      cursor: pointer;
+      color: rgba(0,0,0,0.35);
+      transition: color 0.2s;
+      padding: 6px 16px;
+      border-radius: 8px;
+    }
+    .nav-item.active { color: var(--black); }
+    .nav-item:hover:not(.active) { color: rgba(0,0,0,0.6); }
+    .nav-item .material-symbols-outlined { font-size: 22px; }
+    .nav-item span.nav-label {
+      font-size: 0.6rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 600;
+    }
+
+    /* ── Like animation ── */
+    .action-btn.liked .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1;
+      color: #e53e3e;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top App Bar -->
+  <header class="top-bar anim-fade-in">
+    <div class="top-bar__logo">湖芯AIT</div>
+    <div class="top-bar__actions">
+      <span class="material-symbols-outlined" title="分享">share</span>
+      <span class="material-symbols-outlined" title="更多選項">more_vert</span>
+    </div>
+  </header>
+
+  <main>
+    <article>
+
+      <!-- Author Row -->
+      <div class="author-row anim-fade-up delay-1">
+        <div class="author-avatar">
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSkf6F55NlOirZrYPovWOvrrMpJ7BA6IS_N7IhdO7yqmQ7QkHv-TRSwvDnZKibZQ0x1zV1iyfRmBPLHTF5RTjRqxY2QeRhg4XAsxU92zdM5pksXlF9N6ntIO1rfglRhOa1He4-UshhiOYVOPZ8zLUT4gpS70Q0TJ-Fh6sU9cltsHtOZa0bYpmxkPjq0p2iqCw-zLL9OreOq2C2JIZhs27JfRC34FpExi0e0rFbjm0-P6suYWcPBlGGIth_-xTnwec-4KFNNbIwqqE"
+            alt="賞屋獵人頭像"
+          />
+        </div>
+        <div>
+          <div class="author-name">賞屋獵人</div>
+          <div class="author-title">Architectural Curator</div>
+        </div>
+        <div class="author-time">2h</div>
+      </div>
+
+      <!-- Title -->
+      <div class="anim-fade-up delay-2">
+        <h1 class="post-title">【賞屋日誌】台北內湖<br/>湖芯AIT</h1>
+        <p class="post-subtitle">內湖星雲重劃區「小天母」氛圍</p>
+      </div>
+
+      <!-- Photo Grid -->
+      <div class="photo-grid anim-fade-up delay-3">
+        <div class="photo-grid__hero">
+          <img
+            src="https://lh3.googleusercontent.com/aida/ADBb0ugklxDN6UbvaP3YZ5FNccIVX8xakDaDBt2BvnXRteeQAxeFazhtQajtzT_zYV5uPfajplWml9eazRi4znVkiOtqWr-bJoyYAsA0UNZ65o9Dv4gLZDwpejkIAclGs8_BZwbYozWYhXLUCF6UX0YkSj8YGO9GnfW7nGVwi7WU3LNtDEYvws_P7EjYLP30KVuH0sBxYug7Umh3WVcLhYPzGUKtsVwBH747mE6KE11YyzmLSRzYLjQMFSvuDvPQDLq8nLaCcoNUT0Gl3A"
+            alt="日式清水模建築外觀"
+          />
+        </div>
+        <div class="photo-tile">
+          <img
+            src="https://lh3.googleusercontent.com/aida/ADBb0ui-PQQczNp3mHWatP8WWJXZKMDtvnvDa_MlnxyOF5WTLY1b1ekib81tbmlTrXDXah5zr-xtCOkxG82G4OtUUkRPjT-UGxCcwytCXBbIvWJ00wSJGG18yul1BSZirmID0GbO_ztlmXPzBAh38RNvdrpU19Hrwm6WITqh-sPNHTWAfcYAz-8XsZHjMDsi-FzjU0aiCetKDalD7_jIokph1bdkq0WjFmH4apzsIUxRXCEeOv89fnkbXRdZxeNVgZUDHJZ9DptxEzinAA"
+            alt="室內豪宅空間"
+          />
+        </div>
+        <div class="photo-tile photo-tile--more">
+          <img
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrCnuXtVGXazyZa1Uo_8lOUuhoblQx3VSgZzVNMGLgXQWGn7Knp0KqoK8IDHoIvMXsAbIE32-AL62BIT5dTfqJTYFnIrZ5NRXPmBXtZJScVA26Rhi0JKazvYVp90T3FAZk9QCqN0qRFjLY1ZhkQ_EK88r1Hlo8wiUbxpA8Z-fWEOkunchFdj4JJAgL9KKyOad4J5UfSMFHbDf1Ah-8qp5oEADFnnm3WvgBNOk18gTkLSjFRNQx81qlDQ5QHqTjBGv-elIxRNahosY"
+            alt="屋頂景觀"
+          />
+          <div class="photo-tile--more__overlay">+4 張</div>
+        </div>
+      </div>
+
+      <!-- Section: Location -->
+      <div class="section-block anim-fade-up delay-4">
+        <div class="section-label">The Location / 地利</div>
+        <div class="timeline">
+
+          <div class="timeline-item">
+            <div class="timeline-icon-col">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">location_on</span>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-content">
+              <p class="location-primary">
+                📍 星雲重劃區金湖路首排<br/>
+                距離 AIT 約 <strong>160m</strong> ｜ 捷運內湖站約 <strong>400m</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-icon-col">
+              <span class="material-symbols-outlined">public</span>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-heading">AIT 使館特區</div>
+              <div class="timeline-sub">AIT Diplomatic District · 高規格治安維護</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-icon-col">
+              <span class="material-symbols-outlined">train</span>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-heading">捷運內湖站 / CityLink 商圈</div>
+              <div class="timeline-sub">Neihu Station CityLink · 核心商業機能</div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="timeline-icon-col">
+              <span class="material-symbols-outlined">park</span>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-heading">大湖公園 / 白鷺鷥山步道</div>
+              <div class="timeline-sub">Dahu Park &amp; Trail · 萬坪綠意自然森活</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Section: Building Highlights -->
+      <div class="section-block anim-fade-up delay-5">
+        <div class="section-label">Building Highlights / 建築亮點</div>
+        <div class="bento-grid">
+          <div class="bento-card">
+            <div class="bento-card__label">Architectural / 建築</div>
+            <ul class="bento-list">
+              <li>
+                <span class="material-symbols-outlined">architecture</span>
+                日式清水模線條設計
+              </li>
+              <li>
+                <span class="material-symbols-outlined">foundation</span>
+                RC 構造、岩盤基礎 (耐震 0.26G)
+              </li>
+              <li>
+                <span class="material-symbols-outlined">verified_user</span>
+                10 年防水保固承諾
+              </li>
+            </ul>
+          </div>
+          <div class="bento-card bento-card--dark">
+            <div class="bento-card__label">Interior / 格局</div>
+            <div class="floor-plan-size">A1 · 36.58 坪</div>
+            <div class="floor-plan-sub">室內實坪 23.47 坪</div>
+            <div class="floor-plan-tags">
+              <span>三面採光</span>
+              <span>全三房</span>
+              <span>樓高 3.4 米</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Equipment -->
+      <div class="section-block anim-fade-up delay-5">
+        <div class="section-label">Equipment / 配備</div>
+        <div class="chip-list">
+          <span class="chip">三協氣密窗 + 6+6mm Low-E</span>
+          <span class="chip">Panasonic 日本原裝廚具</span>
+          <span class="chip">Bosch 洗碗機</span>
+          <span class="chip">Bosch 人臉辨識鎖</span>
+        </div>
+      </div>
+
+      <!-- Section: Community -->
+      <div class="section-block anim-fade-up delay-5">
+        <div class="section-label">Community / 公設</div>
+        <p class="community-text">
+          三樓規劃優雅 <strong>交誼空間與琴房</strong>，頂樓則是能鳥瞰大湖與山景的 <strong>健身角落</strong>。配備機械升降平面車位，並貼心預留充電線槽。
+        </p>
+      </div>
+
+      <!-- Action Bar -->
+      <div class="action-bar">
+        <button class="action-btn" id="btn-like" aria-label="按讚">
+          <span class="material-symbols-outlined">favorite</span>
+          <span class="count" id="like-count">128</span>
+        </button>
+        <button class="action-btn" aria-label="留言">
+          <span class="material-symbols-outlined">chat_bubble</span>
+          <span class="count">24</span>
+        </button>
+        <button class="action-btn" aria-label="轉發">
+          <span class="material-symbols-outlined">autorenew</span>
+          <span class="count">12</span>
+        </button>
+        <button class="action-btn action-btn--send" aria-label="傳送">
+          <span class="material-symbols-outlined">send</span>
+        </button>
+      </div>
+
+    </article>
+
+    <div class="divider"></div>
+
+    <!-- Signature Footer -->
+    <footer class="sig-footer">
+      <div class="sig-footer__name">賞屋獵人</div>
+      <p class="sig-footer__copy">© Hunter Branding. All rights reserved.</p>
+      <nav class="sig-footer__links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Contact</a>
+      </nav>
+    </footer>
+
+  </main>
+
+  <!-- Bottom Nav -->
+  <nav class="bottom-nav">
+    <div class="nav-item" role="button" tabindex="0">
+      <span class="material-symbols-outlined">explore</span>
+      <span class="nav-label">Explore</span>
+    </div>
+    <div class="nav-item active" role="button" tabindex="0">
+      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">import_contacts</span>
+      <span class="nav-label">Diary</span>
+    </div>
+    <div class="nav-item" role="button" tabindex="0">
+      <span class="material-symbols-outlined">bookmark</span>
+      <span class="nav-label">Saved</span>
+    </div>
+    <div class="nav-item" role="button" tabindex="0">
+      <span class="material-symbols-outlined">person</span>
+      <span class="nav-label">Profile</span>
+    </div>
+  </nav>
+
+  <script>
+    // Like button toggle
+    const btnLike = document.getElementById('btn-like');
+    const likeCount = document.getElementById('like-count');
+    let liked = false;
+    let count = 128;
+
+    btnLike.addEventListener('click', () => {
+      liked = !liked;
+      count = liked ? count + 1 : count - 1;
+      likeCount.textContent = count;
+      btnLike.classList.toggle('liked', liked);
+    });
+
+    // Bottom nav switching
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => {
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        item.classList.add('active');
+      });
+      item.addEventListener('keydown', e => {
+        if (e.key === 'Enter' || e.key === ' ') item.click();
+      });
+    });
+  </script>
+
+</body>
+</html>
