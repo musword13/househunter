@@ -3,431 +3,286 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="湖芯AIT 賞屋日誌 — 台北內湖星雲重劃區 AIT 旁精品住宅"/>
   <title>湖芯AIT | 賞屋日誌</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Noto+Serif+TC:wght@300;400;500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
+    *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+    html { scroll-behavior:smooth; }
     :root {
-      --ink: #0e0e0d;
-      --ink-2: #3a3832;
-      --sand: #f4f1ec;
-      --sand-2: #e8e3da;
-      --moss: #2d3d2e;
-      --gold: #b08b4e;
-      --gold-light: #d4aa72;
-      --white: #fff;
-      --border: rgba(14,14,13,0.08);
-      --muted: #6b6660;
-      --font-display: 'Manrope', sans-serif;
-      --font-serif: 'Noto Serif TC', serif;
-      --font-body: 'Work Sans', sans-serif;
+      --black:   #0a0a0a;
+      --white:   #ffffff;
+      --g1:      #f5f5f5;
+      --g2:      #eeeeee;
+      --g3:      #d1d1d1;
+      --g4:      #757575;
+      --border:  rgba(0,0,0,0.07);
+      --fh: 'Manrope', sans-serif;
+      --fb: 'Work Sans', sans-serif;
     }
+    body { font-family:var(--fb); background:var(--white); color:var(--black); -webkit-font-smoothing:antialiased; }
 
-    body {
-      font-family: var(--font-body);
-      background: var(--sand);
-      color: var(--ink);
-      -webkit-font-smoothing: antialiased;
-    }
+    .material-symbols-outlined { font-variation-settings:'FILL' 0,'wght' 300,'GRAD' 0,'opsz' 24; }
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-    .anim { animation: fadeUp 0.65s cubic-bezier(0.22,1,0.36,1) both; }
-    .d1{animation-delay:0.05s} .d2{animation-delay:0.12s} .d3{animation-delay:0.2s}
-    .d4{animation-delay:0.28s} .d5{animation-delay:0.36s} .d6{animation-delay:0.44s}
+    @keyframes fadeUp { from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn  { from{opacity:0}to{opacity:1} }
+    .a{animation:fadeUp .6s cubic-bezier(.22,1,.36,1) both}
+    .d1{animation-delay:.05s}.d2{animation-delay:.12s}.d3{animation-delay:.19s}
+    .d4{animation-delay:.26s}.d5{animation-delay:.33s}.d6{animation-delay:.4s}
 
     /* ── TOP BAR ── */
-    .topbar {
-      position: fixed; top:0; left:0; right:0; z-index:200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px; height: 68px;
-      background: rgba(10,10,10,0.88);
-      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    .top {
+      position:fixed;top:0;left:0;right:0;z-index:200;height:64px;
+      display:flex;align-items:center;justify-content:space-between;padding:0 24px;
+      background:rgba(10,10,10,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
     }
-    .topbar__logo {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: 1.05rem; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--white); text-decoration: none;
-    }
-    .topbar__logo span { color: var(--gold-light); }
-    .topbar__actions { display: flex; gap: 20px; }
-    .topbar__actions .material-symbols-outlined {
-      color: rgba(255,255,255,0.55); cursor: pointer;
-      transition: color 0.2s; font-size: 22px; user-select: none;
-    }
-    .topbar__actions .material-symbols-outlined:hover { color: var(--white); }
-    .topbar__back {
-      display: flex; align-items: center; gap: 6px;
-      color: rgba(255,255,255,0.55); cursor: pointer;
-      transition: color 0.2s; font-size: 0.8rem;
-      text-decoration: none;
-    }
-    .topbar__back:hover { color: var(--white); }
-    .topbar__back .material-symbols-outlined { font-size: 18px; }
-    @media (max-width: 640px) { .topbar { padding: 0 20px; } }
+    .top__logo { font-family:var(--fh);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;color:var(--white);text-decoration:none; }
+    .top__back { display:flex;align-items:center;gap:5px;color:rgba(255,255,255,.55);text-decoration:none;font-size:.8rem;transition:color .2s; }
+    .top__back:hover { color:var(--white); }
+    .top__back .material-symbols-outlined { font-size:18px; }
+    .top__acts { display:flex;gap:20px; }
+    .top__acts .material-symbols-outlined { color:rgba(255,255,255,.55);cursor:pointer;transition:color .2s;font-size:22px;user-select:none; }
+    .top__acts .material-symbols-outlined:hover { color:var(--white); }
+    @media(max-width:640px){ .top{padding:0 16px;} }
 
     /* ── MAIN ── */
-    main {
-      padding-top: 68px;
-      padding-bottom: 88px;
-      max-width: 720px;
-      margin: 0 auto;
-      padding-left: 24px; padding-right: 24px;
-    }
+    main { padding-top:64px;padding-bottom:88px;max-width:672px;margin:0 auto;padding-left:20px;padding-right:20px; }
 
-    /* ── AUTHOR ROW ── */
-    .author-row {
-      display: flex; align-items: center; gap: 12px;
-      padding: 28px 0 20px;
-    }
-    .author-avatar {
-      width: 42px; height: 42px; border-radius: 50%;
-      overflow: hidden; background: var(--ink); flex-shrink: 0;
-    }
-    .author-avatar img { width:100%; height:100%; object-fit:cover; }
-    .author-name { font-weight: 700; font-size: 0.9rem; color: var(--ink); }
-    .author-title { font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
-    .author-time { margin-left: auto; font-size: 0.75rem; color: var(--muted); }
+    /* ── AUTHOR ── */
+    .author { display:flex;align-items:center;gap:12px;padding:28px 0 18px; }
+    .avatar { width:40px;height:40px;border-radius:50%;overflow:hidden;background:var(--black);flex-shrink:0; }
+    .avatar img { width:100%;height:100%;object-fit:cover; }
+    .author__name { font-weight:700;font-size:.875rem;color:var(--black); }
+    .author__role { font-size:.65rem;text-transform:uppercase;letter-spacing:.1em;color:var(--g4); }
+    .author__time { margin-left:auto;font-size:.75rem;color:var(--g4); }
 
-    /* ── POST TITLE ── */
-    .post-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.9rem, 5vw, 2.8rem);
-      font-weight: 800; line-height: 1.1;
-      letter-spacing: -0.03em; color: var(--ink);
-      margin-bottom: 6px;
-    }
-    .post-sub {
-      font-size: 0.7rem; text-transform: uppercase;
-      letter-spacing: 0.15em; color: var(--muted); font-weight: 500;
-      margin-bottom: 28px;
-    }
+    /* ── POST HEADER ── */
+    .post-title { font-family:var(--fh);font-size:clamp(1.85rem,5vw,2.6rem);font-weight:800;line-height:1.1;letter-spacing:-.035em;color:var(--black);margin-bottom:6px; }
+    .post-sub   { font-size:.7rem;text-transform:uppercase;letter-spacing:.14em;color:var(--g4);font-weight:500;margin-bottom:28px; }
 
     /* ── PHOTO GRID ── */
-    .photo-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px; margin-bottom: 40px;
-    }
-    .photo-hero {
-      grid-column: span 2;
-      aspect-ratio: 16/9; overflow: hidden;
-      border-radius: 8px; background: var(--sand-2); cursor: pointer;
-    }
-    .photo-hero img {
-      width:100%; height:100%; object-fit:cover;
-      filter: grayscale(1); transition: filter 0.8s ease;
-      display: block;
-    }
-    .photo-hero:hover img { filter: grayscale(0); }
-
-    .photo-tile {
-      aspect-ratio: 1/1; overflow: hidden;
-      border-radius: 6px; background: var(--sand-2); cursor: pointer;
-      position: relative;
-    }
-    .photo-tile img { width:100%; height:100%; object-fit:cover; display:block; transition: transform 0.5s ease; }
-    .photo-tile:hover img { transform: scale(1.05); }
-
-    .photo-tile--more .photo-tile__overlay {
-      position: absolute; inset:0;
-      background: rgba(14,14,13,0.55);
-      display: flex; align-items:center; justify-content:center;
-      font-family: var(--font-display); font-weight: 700;
-      font-size: 0.9rem; color: var(--white);
-      letter-spacing: 0.05em;
+    .pg { display:grid;grid-template-columns:7fr 5fr;gap:8px;margin-bottom:40px; }
+    .pg__hero { grid-column:span 2;aspect-ratio:16/9;overflow:hidden;border-radius:8px;background:var(--g1);cursor:pointer; }
+    .pg__hero img { width:100%;height:100%;object-fit:cover;display:block;filter:grayscale(1);transition:filter .75s; }
+    .pg__hero:hover img { filter:grayscale(0); }
+    .pg__col { display:flex;flex-direction:column;gap:8px; }
+    .pg__tile { flex:1;overflow:hidden;border-radius:6px;background:var(--g1);cursor:pointer;position:relative; }
+    .pg__tile img { width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s; }
+    .pg__tile:hover img { transform:scale(1.05); }
+    .pg__more { flex:1;overflow:hidden;border-radius:6px;background:var(--black);cursor:pointer;position:relative; }
+    .pg__more img { width:100%;height:100%;object-fit:cover;display:block;opacity:.55; }
+    .pg__more__lbl {
+      position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+      font-family:var(--fh);font-weight:700;font-size:.9rem;color:var(--white);letter-spacing:.05em;
     }
 
     /* ── SECTION LABEL ── */
-    .sec-label {
-      font-size: 0.6rem; font-weight: 700;
-      text-transform: uppercase; letter-spacing: 0.18em;
-      color: var(--gold); margin-bottom: 16px;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .sec-label::after {
-      content: ''; flex:1; height:1px; background: var(--border);
+    .slbl {
+      font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.16em;
+      color:var(--black);font-family:var(--fb);margin-bottom:16px;
     }
 
     /* ── TIMELINE ── */
-    .timeline { margin-bottom: 36px; }
-    .tl-item { display: flex; gap: 16px; padding-bottom: 22px; }
-    .tl-item:last-child { padding-bottom: 0; }
-    .tl-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0; }
-    .tl-col .material-symbols-outlined { font-size: 20px; color: var(--moss); }
-    .tl-line { flex:1; width:1px; background: var(--border); min-height: 20px; }
-    .tl-item:last-child .tl-line { display:none; }
+    .tl { margin-bottom:36px; }
+    .tl-row { display:flex;gap:18px;padding-bottom:22px; }
+    .tl-row:last-child { padding-bottom:0; }
+    .tl-icon { display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0; }
+    .tl-icon .material-symbols-outlined { font-size:20px;color:var(--black); }
+    .tl-line  { flex:1;width:1px;background:rgba(0,0,0,.12);min-height:20px; }
+    .tl-row:last-child .tl-line { display:none; }
     .tl-body { flex:1; }
-    .tl-head { font-weight: 700; font-size: 0.9rem; color: var(--ink); margin-bottom: 2px; }
-    .tl-sub { font-size: 0.75rem; color: var(--muted); }
+    .tl-h { font-weight:700;font-size:.875rem;margin-bottom:2px; }
+    .tl-s { font-size:.73rem;color:var(--g4); }
 
     /* Location link */
-    .loc-link {
-      display: block; text-decoration: none; cursor: pointer;
-      font-weight: 500; font-size: 0.95rem; line-height: 1.65;
-      color: var(--ink); transition: color 0.2s;
-      border-bottom: 1px dashed transparent;
+    .loc-a {
+      display:block;text-decoration:none;color:var(--black);
+      font-weight:500;font-size:.95rem;line-height:1.65;
+      cursor:pointer;transition:color .2s;
     }
-    .loc-link:hover { color: var(--gold); border-color: var(--gold-light); }
-    .loc-link strong { font-weight: 800; }
-    .loc-link .map-hint {
-      display: inline-flex; align-items: center; gap: 4px;
-      font-size: 0.7rem; color: var(--gold); font-weight: 600;
-      margin-top: 4px;
+    .loc-a strong { font-weight:800; }
+    .loc-a:hover { color:var(--g4); }
+    .loc-hint {
+      display:inline-flex;align-items:center;gap:3px;margin-top:5px;
+      font-size:.68rem;font-weight:600;color:var(--g4);
     }
-    .loc-link .map-hint .material-symbols-outlined { font-size: 14px; }
+    .loc-hint .material-symbols-outlined { font-size:13px; }
 
-    /* ── BENTO GRID ── */
-    .bento-2 {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 10px; margin-bottom: 36px;
-    }
-    @media (max-width: 500px) { .bento-2 { grid-template-columns: 1fr; } }
+    /* ── BENTO 2-COL ── */
+    .b2 { display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:36px; }
+    @media(max-width:480px){ .b2{grid-template-columns:1fr;} }
 
-    .card {
-      padding: 22px; border-radius: 8px;
-      border: 1px solid var(--border); background: var(--white);
-    }
-    .card--dark { background: var(--moss); border-color: transparent; color: var(--white); }
-    .card__label {
-      font-size: 0.58rem; font-weight: 700; text-transform: uppercase;
-      letter-spacing: 0.18em; margin-bottom: 16px; color: var(--gold);
-    }
-    .card--dark .card__label { color: var(--gold-light); }
+    .card { padding:20px;border-radius:6px;border:1px solid var(--border);background:var(--g1); }
+    .card--dark { background:var(--black);border-color:transparent;color:var(--white); }
+    .card__lbl { font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.16em;color:var(--black);margin-bottom:14px; }
+    .card--dark .card__lbl { color:rgba(255,255,255,.4); }
 
-    .feat-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
-    .feat-list li { display:flex; align-items:flex-start; gap:8px; font-size:0.875rem; }
-    .feat-list li .material-symbols-outlined { font-size:16px; color:var(--moss); flex-shrink:0; margin-top:1px; }
+    .fl { list-style:none;display:flex;flex-direction:column;gap:9px; }
+    .fl li { display:flex;align-items:flex-start;gap:8px;font-size:.85rem; }
+    .fl li .material-symbols-outlined { font-size:16px;flex-shrink:0;margin-top:1px;color:var(--black); }
 
-    .floor-size {
-      font-family: var(--font-display); font-weight: 800;
-      font-size: 1.7rem; letter-spacing:-0.02em; color:var(--white);
-    }
-    .floor-sub { font-size:0.75rem; color:rgba(255,255,255,0.5); margin-top:3px; }
-    .floor-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:14px; }
-    .floor-tags span {
-      font-size:0.68rem; font-weight:600; padding:4px 10px;
-      background:rgba(255,255,255,0.12); border-radius:3px;
-      color:rgba(255,255,255,0.85);
+    .fsz { font-family:var(--fh);font-weight:800;font-size:1.65rem;letter-spacing:-.02em; }
+    .fsub{ font-size:.73rem;color:rgba(255,255,255,.45);margin-top:3px; }
+    .ftags { display:flex;flex-wrap:wrap;gap:6px;margin-top:14px; }
+    .ftag {
+      font-size:.65rem;font-weight:600;padding:4px 10px;
+      background:rgba(255,255,255,.1);border-radius:3px;color:rgba(255,255,255,.82);
     }
 
-    /* ── FLOOR PLAN IMAGE ── */
-    .floorplan-block { margin-bottom: 36px; }
-    .floorplan-img-wrap {
-      border-radius: 8px; overflow: hidden;
-      border: 1px solid var(--border);
-      background: var(--white);
-      cursor: zoom-in;
-    }
-    .floorplan-img-wrap img {
-      width:100%; display:block;
-      transition: transform 0.4s ease;
-    }
-    .floorplan-img-wrap:hover img { transform: scale(1.02); }
+    /* ── FLOOR PLAN ── */
+    .fp { margin-bottom:36px; }
+    .fp__wrap { border-radius:6px;overflow:hidden;border:1px solid var(--border);background:var(--white);cursor:zoom-in; }
+    .fp__wrap img { width:100%;display:block;transition:transform .4s; }
+    .fp__wrap:hover img { transform:scale(1.02); }
 
     /* ── CHIPS ── */
-    .chip-list { display:flex; flex-wrap:wrap; gap:8px; margin-bottom: 36px; }
-    .chip {
-      padding: 6px 14px; background: var(--white);
-      border: 1px solid var(--border); border-radius: 999px;
-      font-size:0.75rem; font-weight:500; color:var(--ink);
+    .chips { display:flex;flex-wrap:wrap;gap:7px;margin-bottom:36px; }
+    .chip  {
+      padding:5px 13px;background:var(--g1);border:1px solid rgba(0,0,0,.06);
+      border-radius:999px;font-size:.73rem;font-weight:500;
     }
 
     /* ── COMMUNITY ── */
-    .community-text {
-      font-size:0.9rem; line-height:1.8; color:var(--muted); margin-bottom:36px;
-    }
-    .community-text strong { color:var(--ink); font-weight:600; }
+    .community { font-size:.9rem;line-height:1.8;color:var(--g4);margin-bottom:36px; }
+    .community strong { color:var(--black);font-weight:600; }
 
     /* ── ACTION BAR ── */
-    .action-bar {
-      display:flex; align-items:center; gap:20px;
-      padding: 16px 0; border-top:1px solid var(--border);
-      margin-top:8px; margin-bottom: 48px;
+    .act {
+      display:flex;align-items:center;gap:20px;
+      padding:16px 0;border-top:1px solid var(--border);
+      margin-bottom:48px;
     }
-    .action-btn {
-      display:flex; align-items:center; gap:6px;
-      cursor:pointer; color:var(--muted);
-      transition:color 0.2s; background:none; border:none;
-      font-family:var(--font-body);
-    }
-    .action-btn:hover { color:var(--ink); }
-    .action-btn .material-symbols-outlined { font-size:21px; }
-    .action-btn .count { font-size:0.78rem; }
-    .action-btn--send { margin-left:auto; }
-    .action-btn.liked .material-symbols-outlined { font-variation-settings:'FILL' 1; color:#c0392b; }
+    .ab { display:flex;align-items:center;gap:6px;cursor:pointer;color:var(--g4);transition:color .2s;background:none;border:none;font-family:var(--fb); }
+    .ab:hover { color:var(--black); }
+    .ab .material-symbols-outlined { font-size:20px; }
+    .ab .n { font-size:.75rem; }
+    .ab-r { margin-left:auto; }
+    .ab.liked .material-symbols-outlined { font-variation-settings:'FILL' 1;color:#c0392b; }
 
-    /* ── SIGNATURE FOOTER ── */
-    .sig { text-align:center; padding: 32px 0 16px; }
-    .sig__name { font-family:var(--font-display); font-weight:800; font-size:1.1rem; margin-bottom:6px; }
-    .sig__copy { font-size:0.7rem; color:rgba(14,14,13,0.35); margin-bottom:10px; }
-    .sig__links { display:flex; justify-content:center; gap:16px; }
-    .sig__links a { font-size:0.7rem; color:rgba(14,14,13,0.3); text-decoration:none; transition:color 0.2s; }
-    .sig__links a:hover { color:var(--ink); }
+    /* ── SIG FOOTER ── */
+    .sig { text-align:center;padding:24px 0 12px; }
+    .sig__n { font-family:var(--fh);font-weight:800;font-size:1.1rem;margin-bottom:6px; }
+    .sig__c { font-size:.68rem;color:rgba(0,0,0,.3);margin-bottom:10px; }
+    .sig__l { display:flex;justify-content:center;gap:16px; }
+    .sig__l a { font-size:.68rem;color:rgba(0,0,0,.28);text-decoration:none;transition:color .2s; }
+    .sig__l a:hover { color:var(--black); }
 
     /* ── BOTTOM NAV ── */
-    .bottom-nav {
-      position:fixed; bottom:0; left:0; right:0; z-index:200;
-      display:flex; justify-content:space-around; align-items:center;
-      background:rgba(244,241,236,0.96); backdrop-filter:blur(20px);
+    .bnav {
+      position:fixed;bottom:0;left:0;right:0;z-index:200;
+      display:flex;justify-content:space-around;align-items:center;
+      background:rgba(255,255,255,.97);backdrop-filter:blur(16px);
       border-top:1px solid var(--border);
-      padding: 10px 0 env(safe-area-inset-bottom, 0);
+      padding:10px 0 env(safe-area-inset-bottom,0);
     }
-    .nav-item {
-      display:flex; flex-direction:column; align-items:center; gap:3px;
-      cursor:pointer; padding:4px 16px;
-      color:rgba(14,14,13,0.35); transition:color 0.2s; text-decoration:none;
-    }
-    .nav-item.active { color:var(--gold); }
-    .nav-item:hover:not(.active) { color:var(--ink); }
-    .nav-item .material-symbols-outlined { font-size:22px; }
-    .nav-item__label { font-size:0.6rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:600; }
+    .ni { display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 16px;color:rgba(0,0,0,.28);transition:color .2s;text-decoration:none; }
+    .ni.on { color:var(--black); }
+    .ni:hover:not(.on) { color:rgba(0,0,0,.6); }
+    .ni .material-symbols-outlined { font-size:22px; }
+    .ni__lb { font-size:.56rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600; }
 
-    /* ══════════════════════════════
-       LIGHTBOX
-    ══════════════════════════════ */
-    .lb-overlay {
-      display:none; position:fixed; inset:0; z-index:1000;
-      background:rgba(5,5,5,0.96); flex-direction:column;
-      align-items:center; justify-content:center;
-      padding: 24px;
+    /* ══ LIGHTBOX ══ */
+    .lb {
+      display:none;position:fixed;inset:0;z-index:1000;
+      background:rgba(0,0,0,.97);flex-direction:column;
+      align-items:center;justify-content:center;padding:24px;
     }
-    .lb-overlay.active { display:flex; }
-    .lb-close {
-      position:absolute; top:20px; right:20px;
-      background:none; border:none; cursor:pointer;
-      color:rgba(255,255,255,0.6); transition:color 0.2s;
+    .lb.on { display:flex; }
+    .lb__close {
+      position:absolute;top:18px;right:18px;background:none;border:none;cursor:pointer;
+      color:rgba(255,255,255,.5);transition:color .2s;
     }
-    .lb-close:hover { color:var(--white); }
-    .lb-close .material-symbols-outlined { font-size:32px; }
+    .lb__close:hover { color:var(--white); }
+    .lb__close .material-symbols-outlined { font-size:30px; }
+    .lb__stage { position:relative;width:100%;max-width:960px;display:flex;align-items:center;justify-content:center; }
+    .lb__img { max-width:100%;max-height:74vh;object-fit:contain;border-radius:4px;animation:fadeIn .22s ease both; }
+    .lb__nav {
+      position:absolute;top:50%;transform:translateY(-50%);
+      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+      border-radius:50%;width:46px;height:46px;
+      display:flex;align-items:center;justify-content:center;
+      cursor:pointer;color:var(--white);transition:background .2s;z-index:2;
+      backdrop-filter:blur(6px);
+    }
+    .lb__nav:hover { background:rgba(255,255,255,.16); }
+    .lb__nav .material-symbols-outlined { font-size:22px; }
+    .lb__prev { left:-58px; }
+    .lb__next { right:-58px; }
+    @media(max-width:680px){ .lb__prev{left:6px;} .lb__next{right:6px;} }
+    .lb__cap { margin-top:18px;text-align:center; }
+    .lb__alt { font-size:.82rem;color:rgba(255,255,255,.55);margin-bottom:5px; }
+    .lb__ct  { font-size:.72rem;color:rgba(255,255,255,.32);letter-spacing:.1em; }
+    .lb__thumbs { display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;justify-content:center; }
+    .lb__th {
+      width:50px;height:50px;border-radius:3px;overflow:hidden;cursor:pointer;
+      border:2px solid transparent;transition:border-color .2s;flex-shrink:0;
+    }
+    .lb__th.on { border-color:rgba(255,255,255,.7); }
+    .lb__th img { width:100%;height:100%;object-fit:cover; }
 
-    .lb-stage {
-      position:relative; width:100%; max-width:960px;
-      display:flex; align-items:center; justify-content:center;
+    /* ══ MAP MODAL ══ */
+    .mm {
+      display:none;position:fixed;inset:0;z-index:900;
+      background:rgba(0,0,0,.82);align-items:center;justify-content:center;padding:24px;
     }
-    .lb-img {
-      max-width:100%; max-height:75vh;
-      object-fit:contain; border-radius:4px;
-      animation: fadeIn 0.25s ease both;
+    .mm.on { display:flex; }
+    .mm__box { background:var(--white);border-radius:8px;overflow:hidden;width:100%;max-width:640px;box-shadow:0 24px 80px rgba(0,0,0,.5); }
+    .mm__head { display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border); }
+    .mm__head h3 { font-family:var(--fh);font-weight:800;font-size:.95rem; }
+    .mm__head p  { font-size:.75rem;color:var(--g4);margin-top:2px; }
+    .mm__x { background:none;border:none;cursor:pointer;color:var(--g4);transition:color .2s; }
+    .mm__x:hover { color:var(--black); }
+    .mm__x .material-symbols-outlined { font-size:20px; }
+    .mm__map { width:100%;height:300px;border:none;display:block; }
+    @media(max-width:480px){ .mm__map{height:220px;} }
+    .mm__ft {
+      padding:12px 20px;display:flex;align-items:center;justify-content:space-between;
+      border-top:1px solid var(--border);flex-wrap:wrap;gap:8px;
     }
-    .lb-nav {
-      position:absolute; top:50%; transform:translateY(-50%);
-      background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.15);
-      border-radius:50%; width:48px; height:48px;
-      display:flex; align-items:center; justify-content:center;
-      cursor:pointer; color:var(--white); transition:background 0.2s; z-index:2;
-      backdrop-filter:blur(8px);
+    .mm__ft p { font-size:.75rem;color:var(--g4); }
+    .mm__open {
+      display:inline-flex;align-items:center;gap:5px;
+      background:var(--black);color:var(--white);border:none;border-radius:3px;
+      padding:8px 14px;font-family:var(--fb);font-size:.7rem;font-weight:600;
+      cursor:pointer;text-decoration:none;transition:opacity .2s;
     }
-    .lb-nav:hover { background:rgba(255,255,255,0.18); }
-    .lb-nav .material-symbols-outlined { font-size:24px; }
-    .lb-prev { left:-60px; }
-    .lb-next { right:-60px; }
-    @media (max-width:680px) {
-      .lb-prev { left:8px; } .lb-next { right:8px; }
-    }
-    .lb-caption {
-      margin-top:20px; text-align:center;
-    }
-    .lb-counter { font-size:0.8rem; color:rgba(255,255,255,0.4); letter-spacing:0.1em; }
-    .lb-alt { font-size:0.85rem; color:rgba(255,255,255,0.65); margin-bottom:6px; }
-    .lb-thumbs {
-      display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; justify-content:center;
-    }
-    .lb-thumb {
-      width:52px; height:52px; border-radius:4px; overflow:hidden; cursor:pointer;
-      border:2px solid transparent; transition:border-color 0.2s; flex-shrink:0;
-    }
-    .lb-thumb.active { border-color:var(--gold-light); }
-    .lb-thumb img { width:100%; height:100%; object-fit:cover; }
-
-    /* ══════════════════════════════
-       MAP MODAL
-    ══════════════════════════════ */
-    .map-modal {
-      display:none; position:fixed; inset:0; z-index:900;
-      background:rgba(5,5,5,0.85); align-items:center; justify-content:center;
-      padding:24px;
-    }
-    .map-modal.active { display:flex; }
-    .map-box {
-      background:var(--white); border-radius:12px; overflow:hidden;
-      width:100%; max-width:680px; box-shadow:0 24px 80px rgba(0,0,0,0.4);
-    }
-    .map-header {
-      display:flex; align-items:center; justify-content:space-between;
-      padding:16px 20px; border-bottom:1px solid var(--border);
-    }
-    .map-header h3 { font-family:var(--font-display); font-weight:700; font-size:1rem; }
-    .map-header p { font-size:0.78rem; color:var(--muted); margin-top:2px; }
-    .map-close {
-      background:none; border:none; cursor:pointer;
-      color:var(--muted); transition:color 0.2s;
-    }
-    .map-close:hover { color:var(--ink); }
-    .map-close .material-symbols-outlined { font-size:22px; }
-    .map-iframe { width:100%; height:320px; border:none; display:block; }
-    @media (max-width:480px) { .map-iframe { height:240px; } }
-    .map-footer {
-      padding:14px 20px;
-      display:flex; align-items:center; justify-content:space-between;
-      border-top:1px solid var(--border); flex-wrap:wrap; gap:8px;
-    }
-    .map-footer p { font-size:0.78rem; color:var(--muted); }
-    .map-open-btn {
-      display:inline-flex; align-items:center; gap:6px;
-      background:var(--moss); color:var(--white);
-      border:none; border-radius:4px; padding:8px 16px;
-      font-family:var(--font-body); font-size:0.75rem; font-weight:600;
-      cursor:pointer; text-decoration:none; transition:background 0.2s;
-    }
-    .map-open-btn:hover { background:var(--gold); }
-    .map-open-btn .material-symbols-outlined { font-size:15px; }
+    .mm__open:hover { opacity:.8; }
+    .mm__open .material-symbols-outlined { font-size:14px; }
   </style>
 </head>
 <body>
 
-  <!-- ══ LIGHTBOX ══ -->
-  <div class="lb-overlay" id="lb">
-    <button class="lb-close" onclick="lbClose()"><span class="material-symbols-outlined">close</span></button>
-    <div class="lb-stage">
-      <button class="lb-nav lb-prev" onclick="lbPrev()"><span class="material-symbols-outlined">chevron_left</span></button>
-      <img class="lb-img" id="lb-img" src="" alt=""/>
-      <button class="lb-nav lb-next" onclick="lbNext()"><span class="material-symbols-outlined">chevron_right</span></button>
+  <!-- Lightbox -->
+  <div class="lb" id="lb">
+    <button class="lb__close" onclick="lbClose()"><span class="material-symbols-outlined">close</span></button>
+    <div class="lb__stage">
+      <button class="lb__nav lb__prev" onclick="lbPrev()"><span class="material-symbols-outlined">chevron_left</span></button>
+      <img class="lb__img" id="lb-img" src="" alt=""/>
+      <button class="lb__nav lb__next" onclick="lbNext()"><span class="material-symbols-outlined">chevron_right</span></button>
     </div>
-    <div class="lb-caption">
-      <div class="lb-alt" id="lb-alt"></div>
-      <div class="lb-counter" id="lb-counter"></div>
+    <div class="lb__cap">
+      <div class="lb__alt" id="lb-alt"></div>
+      <div class="lb__ct"  id="lb-ct"></div>
     </div>
-    <div class="lb-thumbs" id="lb-thumbs"></div>
+    <div class="lb__thumbs" id="lb-thumbs"></div>
   </div>
 
-  <!-- ══ MAP MODAL ══ -->
-  <div class="map-modal" id="mapModal">
-    <div class="map-box">
-      <div class="map-header">
+  <!-- Map Modal -->
+  <div class="mm" id="mm">
+    <div class="mm__box">
+      <div class="mm__head">
         <div>
-          <h3>湖芯AIT · 建案地址</h3>
+          <h3>湖芯AIT · 建案位置</h3>
           <p>台北市內湖區金湖路 · 星雲重劃區首排</p>
         </div>
-        <button class="map-close" onclick="closeMap()"><span class="material-symbols-outlined">close</span></button>
+        <button class="mm__x" onclick="mmClose()"><span class="material-symbols-outlined">close</span></button>
       </div>
-      <iframe class="map-iframe"
-        id="map-iframe"
-        src=""
-        allowfullscreen="" loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="湖芯AIT 地址地圖">
-      </iframe>
-      <div class="map-footer">
+      <iframe class="mm__map" id="mm-map" src="" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="湖芯AIT 地址地圖"></iframe>
+      <div class="mm__ft">
         <p>📍 距 AIT 約 160m · 捷運內湖站約 400m</p>
-        <a class="map-open-btn" href="https://www.google.com/maps/search/?api=1&query=台北市內湖區金湖路+AIT" target="_blank">
+        <a class="mm__open" href="https://www.google.com/maps/search/?api=1&query=台北市內湖區金湖路+AIT" target="_blank">
           <span class="material-symbols-outlined">open_in_new</span>在 Google Maps 開啟
         </a>
       </div>
@@ -435,153 +290,138 @@
   </div>
 
   <!-- Top Bar -->
-  <header class="topbar">
-    <a class="topbar__back" href="index.html">
-      <span class="material-symbols-outlined">arrow_back</span>
-      Explore
+  <header class="top">
+    <a class="top__back" href="index.html">
+      <span class="material-symbols-outlined">arrow_back</span>Explore
     </a>
-    <a class="topbar__logo" href="index.html">賞屋<span>獵人</span></a>
-    <div class="topbar__actions">
-      <span class="material-symbols-outlined" title="分享">share</span>
-      <span class="material-symbols-outlined" title="更多">more_vert</span>
+    <a class="top__logo" href="index.html">湖芯AIT</a>
+    <div class="top__acts">
+      <span class="material-symbols-outlined">share</span>
+      <span class="material-symbols-outlined">more_vert</span>
     </div>
   </header>
 
   <main>
-
     <!-- Author -->
-    <div class="author-row anim d1">
-      <div class="author-avatar">
+    <div class="author a d1">
+      <div class="avatar">
         <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSkf6F55NlOirZrYPovWOvrrMpJ7BA6IS_N7IhdO7yqmQ7QkHv-TRSwvDnZKibZQ0x1zV1iyfRmBPLHTF5RTjRqxY2QeRhg4XAsxU92zdM5pksXlF9N6ntIO1rfglRhOa1He4-UshhiOYVOPZ8zLUT4gpS70Q0TJ-Fh6sU9cltsHtOZa0bYpmxkPjq0p2iqCw-zLL9OreOq2C2JIZhs27JfRC34FpExi0e0rFbjm0-P6suYWcPBlGGIth_-xTnwec-4KFNNbIwqqE" alt="賞屋獵人"/>
       </div>
       <div>
-        <div class="author-name">賞屋獵人</div>
-        <div class="author-title">Architectural Curator</div>
+        <div class="author__name">賞屋獵人</div>
+        <div class="author__role">Architectural Curator</div>
       </div>
-      <div class="author-time">2h ago</div>
+      <div class="author__time">2h</div>
     </div>
 
     <!-- Title -->
-    <div class="anim d2">
-      <h1 class="post-title">【賞屋日誌】<br/>台北內湖 · 湖芯AIT</h1>
+    <div class="a d2">
+      <h1 class="post-title">【賞屋日誌】台北內湖｜湖芯AIT</h1>
       <p class="post-sub">內湖星雲重劃區「小天母」氛圍</p>
     </div>
 
     <!-- Photo Grid -->
-    <div class="photo-grid anim d3">
-      <div class="photo-hero" onclick="lbOpen(0)">
-        <img
-          src="https://lh3.googleusercontent.com/aida/ADBb0ugklxDN6UbvaP3YZ5FNccIVX8xakDaDBt2BvnXRteeQAxeFazhtQajtzT_zYV5uPfajplWml9eazRi4znVkiOtqWr-bJoyYAsA0UNZ65o9Dv4gLZDwpejkIAclGs8_BZwbYozWYhXLUCF6UX0YkSj8YGO9GnfW7nGVwi7WU3LNtDEYvws_P7EjYLP30KVuH0sBxYug7Umh3WVcLhYPzGUKtsVwBH747mE6KE11YyzmLSRzYLjQMFSvuDvPQDLq8nLaCcoNUT0Gl3A"
-          alt="日式清水模建築外觀"/>
+    <div class="pg a d3">
+      <div class="pg__hero" onclick="lbOpen(0)">
+        <img src="https://lh3.googleusercontent.com/aida/ADBb0ugklxDN6UbvaP3YZ5FNccIVX8xakDaDBt2BvnXRteeQAxeFazhtQajtzT_zYV5uPfajplWml9eazRi4znVkiOtqWr-bJoyYAsA0UNZ65o9Dv4gLZDwpejkIAclGs8_BZwbYozWYhXLUCF6UX0YkSj8YGO9GnfW7nGVwi7WU3LNtDEYvws_P7EjYLP30KVuH0sBxYug7Umh3WVcLhYPzGUKtsVwBH747mE6KE11YyzmLSRzYLjQMFSvuDvPQDLq8nLaCcoNUT0Gl3A" alt="建築外觀"/>
       </div>
-      <div class="photo-tile" onclick="lbOpen(1)">
-        <img
-          src="https://lh3.googleusercontent.com/aida/ADBb0ui-PQQczNp3mHWatP8WWJXZKMDtvnvDa_MlnxyOF5WTLY1b1ekib81tbmlTrXDXah5zr-xtCOkxG82G4OtUUkRPjT-UGxCcwytCXBbIvWJ00wSJGG18yul1BSZirmID0GbO_ztlmXPzBAh38RNvdrpU19Hrwm6WITqh-sPNHTWAfcYAz-8XsZHjMDsi-FzjU0aiCetKDalD7_jIokph1bdkq0WjFmH4apzsIUxRXCEeOv89fnkbXRdZxeNVgZUDHJZ9DptxEzinAA"
-          alt="室內豪宅空間"/>
-      </div>
-      <div class="photo-tile photo-tile--more" onclick="lbOpen(2)">
-        <img
-          src="https://lh3.googleusercontent.com/aida/ADBb0uiY3KiHf-Py24FnqWyd5ZrhnA40FgB2MB-Si03AhXbqiGo5MCYb62Xso7BCemmQzkXqG-zWUa7cygH8R0wXlWQnaDwpb9Zc5KHN1-mC6psL5pyDZnI845FmUNK5kMn-W11i-1x9vt-dgYSK1bnjb2n5U097P2BNHnEg5ikfdc5WcUGIKlwQrnIoAZ5v4KZZdjr-t3kv_3m-4sxDG__F3P6um9rRXvHf1_TsEvUbYcufEoa0GsiCI-Q57HhulgD-bs_X3QzEuuL9Dw"
-          alt="平面格局圖"/>
-        <div class="photo-tile__overlay">+4 張</div>
+      <div class="pg__col">
+        <div class="pg__tile" onclick="lbOpen(1)">
+          <img src="https://lh3.googleusercontent.com/aida/ADBb0ui-PQQczNp3mHWatP8WWJXZKMDtvnvDa_MlnxyOF5WTLY1b1ekib81tbmlTrXDXah5zr-xtCOkxG82G4OtUUkRPjT-UGxCcwytCXBbIvWJ00wSJGG18yul1BSZirmID0GbO_ztlmXPzBAh38RNvdrpU19Hrwm6WITqh-sPNHTWAfcYAz-8XsZHjMDsi-FzjU0aiCetKDalD7_jIokph1bdkq0WjFmH4apzsIUxRXCEeOv89fnkbXRdZxeNVgZUDHJZ9DptxEzinAA" alt="室內空間"/>
+        </div>
+        <div class="pg__more" onclick="lbOpen(2)">
+          <img src="https://lh3.googleusercontent.com/aida/ADBb0uiY3KiHf-Py24FnqWyd5ZrhnA40FgB2MB-Si03AhXbqiGo5MCYb62Xso7BCemmQzkXqG-zWUa7cygH8R0wXlWQnaDwpb9Zc5KHN1-mC6psL5pyDZnI845FmUNK5kMn-W11i-1x9vt-dgYSK1bnjb2n5U097P2BNHnEg5ikfdc5WcUGIKlwQrnIoAZ5v4KZZdjr-t3kv_3m-4sxDG__F3P6um9rRXvHf1_TsEvUbYcufEoa0GsiCI-Q57HhulgD-bs_X3QzEuuL9Dw" alt="格局圖"/>
+          <div class="pg__more__lbl">+4 Photos</div>
+        </div>
       </div>
     </div>
 
     <!-- Location -->
-    <div class="anim d4">
-      <div class="sec-label">The Location · 地利</div>
-      <div class="timeline">
-
-        <div class="tl-item">
-          <div class="tl-col">
+    <div class="a d4">
+      <div class="slbl">The Location / 地利</div>
+      <div class="tl">
+        <div class="tl-row">
+          <div class="tl-icon">
             <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">location_on</span>
             <div class="tl-line"></div>
           </div>
           <div class="tl-body">
-            <!-- Clickable address → opens map modal -->
-            <a class="loc-link" onclick="openMap()" href="javascript:void(0)" role="button">
+            <a class="loc-a" onclick="mmOpen()" href="javascript:void(0)">
               📍 星雲重劃區金湖路首排<br/>
-              距離 AIT 約 <strong>160m</strong>｜捷運內湖站約 <strong>400m</strong>
-              <div class="map-hint">
-                <span class="material-symbols-outlined">map</span>
-                點擊查看地圖
-              </div>
+              距離 AIT 約 <strong>160m</strong> | 捷運內湖站約 <strong>400m</strong>
+              <div class="loc-hint"><span class="material-symbols-outlined">map</span>點擊查看地圖</div>
             </a>
           </div>
         </div>
-
-        <div class="tl-item">
-          <div class="tl-col">
+        <div class="tl-row">
+          <div class="tl-icon">
             <span class="material-symbols-outlined">public</span>
             <div class="tl-line"></div>
           </div>
           <div class="tl-body">
-            <div class="tl-head">AIT 使館特區</div>
-            <div class="tl-sub">AIT Diplomatic District · 高規格治安維護</div>
+            <div class="tl-h">AIT 使館特區</div>
+            <div class="tl-s">AIT Diplomatic District / 高規格治安維護</div>
           </div>
         </div>
-
-        <div class="tl-item">
-          <div class="tl-col">
+        <div class="tl-row">
+          <div class="tl-icon">
             <span class="material-symbols-outlined">train</span>
             <div class="tl-line"></div>
           </div>
           <div class="tl-body">
-            <div class="tl-head">捷運內湖站 / CityLink 商圈</div>
-            <div class="tl-sub">核心商業機能 · 步行可達</div>
+            <div class="tl-h">捷運內湖站 / CityLink 商圈</div>
+            <div class="tl-s">Neihu Station CityLink / 核心商業機能</div>
           </div>
         </div>
-
-        <div class="tl-item">
-          <div class="tl-col">
+        <div class="tl-row">
+          <div class="tl-icon">
             <span class="material-symbols-outlined">park</span>
           </div>
           <div class="tl-body">
-            <div class="tl-head">大湖公園 / 白鷺鷥山步道</div>
-            <div class="tl-sub">Dahu Park &amp; Trail · 萬坪綠意自然森活</div>
+            <div class="tl-h">大湖公園 / 白鷺鷥山步道</div>
+            <div class="tl-s">Dahu Park &amp; Trail / 萬坪綠意自然森活</div>
           </div>
         </div>
-
       </div>
     </div>
 
     <!-- Building Highlights -->
-    <div class="anim d4">
-      <div class="sec-label">Building Highlights · 建築亮點</div>
-      <div class="bento-2">
+    <div class="a d4">
+      <div class="slbl">Architectural / 建築</div>
+      <div class="b2">
         <div class="card">
-          <div class="card__label">Architectural · 建築</div>
-          <ul class="feat-list">
+          <div class="card__lbl">Architectural / 建築</div>
+          <ul class="fl">
             <li><span class="material-symbols-outlined">architecture</span>日式清水模線條設計</li>
             <li><span class="material-symbols-outlined">foundation</span>RC 構造、岩盤基礎（耐震 0.26G）</li>
             <li><span class="material-symbols-outlined">verified_user</span>10 年防水保固承諾</li>
           </ul>
         </div>
         <div class="card card--dark">
-          <div class="card__label">Interior · 格局</div>
-          <div class="floor-size">A1 · 36.58 坪</div>
-          <div class="floor-sub">室內實坪約 23.47 坪 · 宜居比例</div>
-          <div class="floor-tags">
-            <span>三面採光</span><span>大三房</span><span>樓高 3.4 米</span>
+          <div class="card__lbl">Interior / 格局</div>
+          <div class="fsz">A1・36.58 坪</div>
+          <div class="fsub">室內實坪 23.47 坪</div>
+          <div class="ftags">
+            <span class="ftag">三面採光</span>
+            <span class="ftag">全三房</span>
+            <span class="ftag">樓高 3.4 米</span>
           </div>
         </div>
       </div>
     </div>
 
     <!-- Floor Plan -->
-    <div class="anim d5 floorplan-block">
-      <div class="sec-label">Visual · 平面圖</div>
-      <div class="floorplan-img-wrap" onclick="lbOpen(2)" title="點擊放大">
-        <img
-          src="https://lh3.googleusercontent.com/aida/ADBb0uiY3KiHf-Py24FnqWyd5ZrhnA40FgB2MB-Si03AhXbqiGo5MCYb62Xso7BCemmQzkXqG-zWUa7cygH8R0wXlWQnaDwpb9Zc5KHN1-mC6psL5pyDZnI845FmUNK5kMn-W11i-1x9vt-dgYSK1bnjb2n5U097P2BNHnEg5ikfdc5WcUGIKlwQrnIoAZ5v4KZZdjr-t3kv_3m-4sxDG__F3P6um9rRXvHf1_TsEvUbYcufEoa0GsiCI-Q57HhulgD-bs_X3QzEuuL9Dw"
-          alt="A1 戶型平面圖"/>
+    <div class="fp a d5">
+      <div class="slbl">Visual / 平面圖</div>
+      <div class="fp__wrap" onclick="lbOpen(2)" title="點擊放大">
+        <img src="https://lh3.googleusercontent.com/aida/ADBb0uiY3KiHf-Py24FnqWyd5ZrhnA40FgB2MB-Si03AhXbqiGo5MCYb62Xso7BCemmQzkXqG-zWUa7cygH8R0wXlWQnaDwpb9Zc5KHN1-mC6psL5pyDZnI845FmUNK5kMn-W11i-1x9vt-dgYSK1bnjb2n5U097P2BNHnEg5ikfdc5WcUGIKlwQrnIoAZ5v4KZZdjr-t3kv_3m-4sxDG__F3P6um9rRXvHf1_TsEvUbYcufEoa0GsiCI-Q57HhulgD-bs_X3QzEuuL9Dw" alt="A1 平面格局圖"/>
       </div>
     </div>
 
     <!-- Equipment -->
-    <div class="anim d5">
-      <div class="sec-label">Equipment · 配備</div>
-      <div class="chip-list">
+    <div class="a d5">
+      <div class="slbl">Equipment / 配備</div>
+      <div class="chips">
         <span class="chip">三協氣密窗 + 6+6mm Low-E</span>
         <span class="chip">Panasonic 日本原裝廚具</span>
         <span class="chip">Bosch 洗碗機</span>
@@ -590,167 +430,134 @@
     </div>
 
     <!-- Community -->
-    <div class="anim d5">
-      <div class="sec-label">Community · 公設</div>
-      <p class="community-text">
-        三樓規劃優雅 <strong>交誼空間與琴房</strong>，頂樓則是能鳥瞰大湖與山景的 <strong>健身角落</strong>。配備機械升降平面車位，並貼心預留充電線槽。
-      </p>
+    <div class="a d5">
+      <div class="slbl">Community / 公設</div>
+      <p class="community">三樓規劃優雅 <strong>交誼空間與琴房</strong>，頂樓則是能鳥瞰大湖與山景的 <strong>健身角落</strong>。配備機械升降平面車位，並貼心預留充電線槽。</p>
     </div>
 
     <!-- Action Bar -->
-    <div class="action-bar anim d6">
-      <button class="action-btn" id="btn-like" onclick="toggleLike()">
+    <div class="act a d6">
+      <button class="ab" id="btn-like" onclick="toggleLike()">
         <span class="material-symbols-outlined">favorite</span>
-        <span class="count" id="like-n">128</span>
+        <span class="n" id="like-n">128</span>
       </button>
-      <button class="action-btn">
+      <button class="ab">
         <span class="material-symbols-outlined">chat_bubble</span>
-        <span class="count">24</span>
+        <span class="n">24</span>
       </button>
-      <button class="action-btn">
+      <button class="ab">
         <span class="material-symbols-outlined">autorenew</span>
-        <span class="count">12</span>
+        <span class="n">12</span>
       </button>
-      <button class="action-btn action-btn--send">
+      <button class="ab ab-r">
         <span class="material-symbols-outlined">send</span>
       </button>
     </div>
 
-    <!-- Signature Footer -->
-    <footer class="sig anim d6">
-      <div class="sig__name">賞屋獵人</div>
-      <p class="sig__copy">© Hunter Branding. All rights reserved.</p>
-      <nav class="sig__links">
+    <!-- Signature -->
+    <footer class="sig a d6">
+      <div class="sig__n">賞屋獵人</div>
+      <p class="sig__c">© Hunter Branding. All rights reserved.</p>
+      <nav class="sig__l">
         <a href="#">Privacy</a>
         <a href="#">Terms</a>
         <a href="#">Contact</a>
       </nav>
     </footer>
-
   </main>
 
   <!-- Bottom Nav -->
-  <nav class="bottom-nav">
-    <a class="nav-item" href="index.html">
+  <nav class="bnav">
+    <a class="ni" href="index.html">
       <span class="material-symbols-outlined">explore</span>
-      <span class="nav-item__label">Explore</span>
+      <span class="ni__lb">Explore</span>
     </a>
-    <a class="nav-item active" href="diary.html">
+    <a class="ni on" href="diary.html">
       <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">import_contacts</span>
-      <span class="nav-item__label">Diary</span>
+      <span class="ni__lb">Diary</span>
     </a>
-    <a class="nav-item" href="#">
+    <a class="ni" href="#">
       <span class="material-symbols-outlined">bookmark</span>
-      <span class="nav-item__label">Saved</span>
+      <span class="ni__lb">Saved</span>
     </a>
-    <a class="nav-item" href="#">
+    <a class="ni" href="#">
       <span class="material-symbols-outlined">person</span>
-      <span class="nav-item__label">Profile</span>
+      <span class="ni__lb">Profile</span>
     </a>
   </nav>
 
   <script>
-    /* ══ LIGHTBOX DATA ══ */
+    /* ══ LIGHTBOX ══ */
     const PHOTOS = [
-      {
-        src: "https://lh3.googleusercontent.com/aida/ADBb0ugklxDN6UbvaP3YZ5FNccIVX8xakDaDBt2BvnXRteeQAxeFazhtQajtzT_zYV5uPfajplWml9eazRi4znVkiOtqWr-bJoyYAsA0UNZ65o9Dv4gLZDwpejkIAclGs8_BZwbYozWYhXLUCF6UX0YkSj8YGO9GnfW7nGVwi7WU3LNtDEYvws_P7EjYLP30KVuH0sBxYug7Umh3WVcLhYPzGUKtsVwBH747mE6KE11YyzmLSRzYLjQMFSvuDvPQDLq8nLaCcoNUT0Gl3A",
-        alt: "建築外觀 · 日式清水模"
-      },
-      {
-        src: "https://lh3.googleusercontent.com/aida/ADBb0ui-PQQczNp3mHWatP8WWJXZKMDtvnvDa_MlnxyOF5WTLY1b1ekib81tbmlTrXDXah5zr-xtCOkxG82G4OtUUkRPjT-UGxCcwytCXBbIvWJ00wSJGG18yul1BSZirmID0GbO_ztlmXPzBAh38RNvdrpU19Hrwm6WITqh-sPNHTWAfcYAz-8XsZHjMDsi-FzjU0aiCetKDalD7_jIokph1bdkq0WjFmH4apzsIUxRXCEeOv89fnkbXRdZxeNVgZUDHJZ9DptxEzinAA",
-        alt: "室內空間 · 大景採光"
-      },
-      {
-        src: "https://lh3.googleusercontent.com/aida/ADBb0uiY3KiHf-Py24FnqWyd5ZrhnA40FgB2MB-Si03AhXbqiGo5MCYb62Xso7BCemmQzkXqG-zWUa7cygH8R0wXlWQnaDwpb9Zc5KHN1-mC6psL5pyDZnI845FmUNK5kMn-W11i-1x9vt-dgYSK1bnjb2n5U097P2BNHnEg5ikfdc5WcUGIKlwQrnIoAZ5v4KZZdjr-t3kv_3m-4sxDG__F3P6um9rRXvHf1_TsEvUbYcufEoa0GsiCI-Q57HhulgD-bs_X3QzEuuL9Dw",
-        alt: "A1 戶型平面圖"
-      },
-      {
-        src: "https://lh3.googleusercontent.com/aida-public/AB6AXuDrCnuXtVGXazyZa1Uo_8lOUuhoblQx3VSgZzVNMGLgXQWGn7Knp0KqoK8IDHoIvMXsAbIE32-AL62BIT5dTfqJTYFnIrZ5NRXPmBXtZJScVA26Rhi0JKazvYVp90T3FAZk9QCqN0qRFjLY1ZhkQ_EK88r1Hlo8wiUbxpA8Z-fWEOkunchFdj4JJAgL9KKyOad4J5UfSMFHbDf1Ah-8qp5oEADFnnm3WvgBNOk18gTkLSjFRNQx81qlDQ5QHqTjBGv-elIxRNahosY",
-        alt: "頂樓景觀 · 大湖山景"
-      }
+      { src:"https://lh3.googleusercontent.com/aida/ADBb0ugklxDN6UbvaP3YZ5FNccIVX8xakDaDBt2BvnXRteeQAxeFazhtQajtzT_zYV5uPfajplWml9eazRi4znVkiOtqWr-bJoyYAsA0UNZ65o9Dv4gLZDwpejkIAclGs8_BZwbYozWYhXLUCF6UX0YkSj8YGO9GnfW7nGVwi7WU3LNtDEYvws_P7EjYLP30KVuH0sBxYug7Umh3WVcLhYPzGUKtsVwBH747mE6KE11YyzmLSRzYLjQMFSvuDvPQDLq8nLaCcoNUT0Gl3A", alt:"建築外觀 · 日式清水模" },
+      { src:"https://lh3.googleusercontent.com/aida/ADBb0ui-PQQczNp3mHWatP8WWJXZKMDtvnvDa_MlnxyOF5WTLY1b1ekib81tbmlTrXDXah5zr-xtCOkxG82G4OtUUkRPjT-UGxCcwytCXBbIvWJ00wSJGG18yul1BSZirmID0GbO_ztlmXPzBAh38RNvdrpU19Hrwm6WITqh-sPNHTWAfcYAz-8XsZHjMDsi-FzjU0aiCetKDalD7_jIokph1bdkq0WjFmH4apzsIUxRXCEeOv89fnkbXRdZxeNVgZUDHJZ9DptxEzinAA", alt:"室內空間 · 大景採光" },
+      { src:"https://lh3.googleusercontent.com/aida/ADBb0uiY3KiHf-Py24FnqWyd5ZrhnA40FgB2MB-Si03AhXbqiGo5MCYb62Xso7BCemmQzkXqG-zWUa7cygH8R0wXlWQnaDwpb9Zc5KHN1-mC6psL5pyDZnI845FmUNK5kMn-W11i-1x9vt-dgYSK1bnjb2n5U097P2BNHnEg5ikfdc5WcUGIKlwQrnIoAZ5v4KZZdjr-t3kv_3m-4sxDG__F3P6um9rRXvHf1_TsEvUbYcufEoa0GsiCI-Q57HhulgD-bs_X3QzEuuL9Dw", alt:"A1 戶型平面圖" },
+      { src:"https://lh3.googleusercontent.com/aida-public/AB6AXuDrCnuXtVGXazyZa1Uo_8lOUuhoblQx3VSgZzVNMGLgXQWGn7Knp0KqoK8IDHoIvMXsAbIE32-AL62BIT5dTfqJTYFnIrZ5NRXPmBXtZJScVA26Rhi0JKazvYVp90T3FAZk9QCqN0qRFjLY1ZhkQ_EK88r1Hlo8wiUbxpA8Z-fWEOkunchFdj4JJAgL9KKyOad4J5UfSMFHbDf1Ah-8qp5oEADFnnm3WvgBNOk18gTkLSjFRNQx81qlDQ5QHqTjBGv-elIxRNahosY", alt:"頂樓景觀 · 大湖山景" }
     ];
-
     let lbIdx = 0;
 
-    function lbOpen(idx) {
-      lbIdx = idx;
-      lbRender();
-      document.getElementById('lb').classList.add('active');
+    function lbOpen(i) {
+      lbIdx = i; lbRender(); buildThumbs();
+      document.getElementById('lb').classList.add('on');
       document.body.style.overflow = 'hidden';
-      buildThumbs();
     }
-
     function lbClose() {
-      document.getElementById('lb').classList.remove('active');
+      document.getElementById('lb').classList.remove('on');
       document.body.style.overflow = '';
     }
-
-    function lbNext() { lbIdx = (lbIdx + 1) % PHOTOS.length; lbRender(); }
-    function lbPrev() { lbIdx = (lbIdx - 1 + PHOTOS.length) % PHOTOS.length; lbRender(); }
-
+    function lbNext() { lbIdx = (lbIdx+1)%PHOTOS.length; lbRender(); }
+    function lbPrev() { lbIdx = (lbIdx-1+PHOTOS.length)%PHOTOS.length; lbRender(); }
     function lbRender() {
       const p = PHOTOS[lbIdx];
       const img = document.getElementById('lb-img');
-      img.style.animation = 'none';
-      img.src = p.src; img.alt = p.alt;
-      img.style.animation = '';
+      img.style.animation='none'; img.src=p.src; img.alt=p.alt;
+      requestAnimationFrame(()=>{ img.style.animation=''; });
       document.getElementById('lb-alt').textContent = p.alt;
-      document.getElementById('lb-counter').textContent = `${lbIdx + 1} / ${PHOTOS.length}`;
-      document.querySelectorAll('.lb-thumb').forEach((t,i) => t.classList.toggle('active', i === lbIdx));
+      document.getElementById('lb-ct').textContent  = `${lbIdx+1} / ${PHOTOS.length}`;
+      document.querySelectorAll('.lb__th').forEach((t,i)=>t.classList.toggle('on',i===lbIdx));
     }
-
     function buildThumbs() {
-      const wrap = document.getElementById('lb-thumbs');
-      if (wrap.children.length) return;
-      PHOTOS.forEach((p, i) => {
+      const w = document.getElementById('lb-thumbs');
+      if (w.children.length) return;
+      PHOTOS.forEach((p,i)=>{
         const d = document.createElement('div');
-        d.className = 'lb-thumb' + (i === lbIdx ? ' active' : '');
-        d.innerHTML = `<img src="${p.src}" alt="${p.alt}" loading="lazy"/>`;
-        d.onclick = () => { lbIdx = i; lbRender(); };
-        wrap.appendChild(d);
+        d.className='lb__th'+(i===lbIdx?' on':'');
+        d.innerHTML=`<img src="${p.src}" alt="${p.alt}" loading="lazy"/>`;
+        d.onclick=()=>{ lbIdx=i; lbRender(); };
+        w.appendChild(d);
       });
     }
 
     /* ══ MAP MODAL ══ */
-    function openMap() {
-      const iframe = document.getElementById('map-iframe');
-      // lazy-load iframe src on first open
-      if (!iframe.src || iframe.src === window.location.href) {
-        iframe.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.2987890234!2d121.57743!3d25.06123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442abe0bb0a59a5%3A0x4a4a4a4a4a4a4a4a!2z5Y-w5YyX5YyX5YyW5YyX5YyX!5e0!3m2!1szh-TW!2stw!4v1680000000000!5m2!1szh-TW!2stw";
-      }
-      document.getElementById('mapModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
+    function mmOpen() {
+      const f = document.getElementById('mm-map');
+      if (!f.src || f.src === location.href)
+        f.src = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.58!2d121.5743!3d25.0612!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442ac0c7ec1a2b5%3A0x1!2z5Y-w5YyX5YyX5YyX5YyX!5e0!3m2!1szh-TW!2stw!4v1680000000!5m2!1szh-TW!2stw";
+      document.getElementById('mm').classList.add('on');
+      document.body.style.overflow='hidden';
     }
-
-    function closeMap() {
-      document.getElementById('mapModal').classList.remove('active');
-      document.body.style.overflow = '';
+    function mmClose() {
+      document.getElementById('mm').classList.remove('on');
+      document.body.style.overflow='';
     }
+    document.getElementById('mm').addEventListener('click',function(e){ if(e.target===this)mmClose(); });
 
     /* ══ LIKE ══ */
-    let liked = false, likeCount = 128;
-    function toggleLike() {
-      liked = !liked;
-      likeCount += liked ? 1 : -1;
-      document.getElementById('btn-like').classList.toggle('liked', liked);
-      document.getElementById('like-n').textContent = likeCount;
+    let liked=false, likeN=128;
+    function toggleLike(){
+      liked=!liked; likeN+=liked?1:-1;
+      document.getElementById('btn-like').classList.toggle('liked',liked);
+      document.getElementById('like-n').textContent=likeN;
     }
 
     /* ══ KEYBOARD ══ */
-    document.addEventListener('keydown', e => {
-      if (document.getElementById('lb').classList.contains('active')) {
-        if (e.key === 'ArrowRight') lbNext();
-        if (e.key === 'ArrowLeft')  lbPrev();
-        if (e.key === 'Escape')     lbClose();
+    document.addEventListener('keydown',e=>{
+      if(document.getElementById('lb').classList.contains('on')){
+        if(e.key==='ArrowRight') lbNext();
+        if(e.key==='ArrowLeft')  lbPrev();
+        if(e.key==='Escape')     lbClose();
       }
-      if (document.getElementById('mapModal').classList.contains('active')) {
-        if (e.key === 'Escape') closeMap();
-      }
-    });
-
-    /* ══ CLICK OUTSIDE TO CLOSE MAP ══ */
-    document.getElementById('mapModal').addEventListener('click', function(e) {
-      if (e.target === this) closeMap();
+      if(document.getElementById('mm').classList.contains('on') && e.key==='Escape') mmClose();
     });
   </script>
 </body>

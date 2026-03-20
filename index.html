@@ -3,496 +3,296 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="賞屋獵人 — 台北內湖精品建案策展平台"/>
   <title>賞屋獵人 | Explore</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&family=Noto+Serif+TC:wght@300;400;500;700&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;400;600;700;800&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-
     :root {
-      --ink: #0e0e0d;
-      --ink-2: #3a3832;
-      --sand: #f4f1ec;
-      --sand-2: #e8e3da;
-      --moss: #2d3d2e;
-      --gold: #b08b4e;
-      --gold-light: #d4aa72;
-      --white: #fff;
-      --border: rgba(14,14,13,0.08);
-      --font-display: 'Manrope', sans-serif;
-      --font-serif: 'Noto Serif TC', serif;
-      --font-body: 'Work Sans', sans-serif;
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --g1: #f5f5f5;
+      --g2: #eeeeee;
+      --g3: #d1d1d1;
+      --g4: #757575;
+      --border: rgba(0,0,0,0.08);
+      --fh: 'Manrope', sans-serif;
+      --fb: 'Work Sans', sans-serif;
     }
+    body { font-family: var(--fb); background: var(--white); color: var(--black); -webkit-font-smoothing: antialiased; }
 
-    body {
-      font-family: var(--font-body);
-      background: var(--sand);
-      color: var(--ink);
-      -webkit-font-smoothing: antialiased;
-      min-height: 100vh;
-    }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeIn  { from{opacity:0}to{opacity:1} }
+    .a{animation:fadeUp .6s cubic-bezier(.22,1,.36,1) both}
+    .d1{animation-delay:.05s}.d2{animation-delay:.13s}.d3{animation-delay:.21s}
+    .d4{animation-delay:.29s}.d5{animation-delay:.37s}.d6{animation-delay:.45s}
 
-    /* ── ANIMATIONS ── */
-    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
-    @keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
-    @keyframes slideDown { from { transform:translateY(-100%); opacity:0; } to { transform:translateY(0); opacity:1; } }
-    .anim { animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both; }
-    .d1 { animation-delay: 0.05s; } .d2 { animation-delay: 0.12s; }
-    .d3 { animation-delay: 0.2s; }  .d4 { animation-delay: 0.3s; }
-    .d5 { animation-delay: 0.4s; }  .d6 { animation-delay: 0.5s; }
+    /* TOP BAR */
+    .top {
+      position:fixed;top:0;left:0;right:0;z-index:200;height:64px;
+      display:flex;align-items:center;justify-content:space-between;padding:0 28px;
+      background:rgba(10,10,10,.93);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+    }
+    .top__logo { font-family:var(--fh);font-weight:800;font-size:1.15rem;letter-spacing:-.02em;color:var(--white);text-decoration:none; }
+    .top__nav  { display:flex;gap:28px; }
+    .top__nav a { font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,.45);transition:color .2s; }
+    .top__nav a.on { color:var(--white); }
+    .top__nav a:hover:not(.on) { color:rgba(255,255,255,.78); }
+    .top__search {
+      display:flex;align-items:center;gap:6px;
+      background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.12);
+      border-radius:999px;padding:5px 14px;
+    }
+    .top__search input { background:none;border:none;outline:none;font-family:var(--fb);font-size:.8rem;color:var(--white);width:130px; }
+    .top__search input::placeholder { color:rgba(255,255,255,.32); }
+    .top__search .material-symbols-outlined { font-size:16px;color:rgba(255,255,255,.45); }
+    @media(max-width:768px){ .top__nav,.top__search{display:none;} .top{padding:0 20px;} }
 
-    /* ── TOP BAR ── */
-    .topbar {
-      position: fixed; top:0; left:0; right:0; z-index:200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px; height: 68px;
-      background: rgba(244,241,236,0.92);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border);
-      animation: slideDown 0.5s ease both;
-    }
-    .topbar__logo {
-      font-family: var(--font-display);
-      font-weight: 800; font-size: 1.05rem;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--moss);
-    }
-    .topbar__logo span { color: var(--gold); }
-    .topbar__nav { display: flex; gap: 32px; }
-    .topbar__nav a {
-      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em;
-      text-transform: uppercase; text-decoration: none;
-      color: var(--ink-2); transition: color 0.2s;
-    }
-    .topbar__nav a.active { color: var(--gold); }
-    .topbar__nav a:hover:not(.active) { color: var(--ink); }
-    .topbar__actions { display: flex; align-items: center; gap: 12px; }
-    .search-box {
-      display: flex; align-items: center; gap: 6px;
-      background: var(--sand-2); border-radius: 999px;
-      padding: 6px 14px; border: 1px solid var(--border);
-    }
-    .search-box input {
-      background: none; border: none; outline: none;
-      font-family: var(--font-body); font-size: 0.8rem;
-      color: var(--ink); width: 140px;
-    }
-    .search-box input::placeholder { color: rgba(14,14,13,0.35); }
-    .search-box .material-symbols-outlined { font-size: 17px; color: var(--ink-2); }
-    @media (max-width: 768px) {
-      .topbar__nav { display: none; }
-      .search-box { display: none; }
-      .topbar { padding: 0 20px; }
-    }
+    main { padding-top:64px;padding-bottom:80px; }
 
-    /* ── MAIN ── */
-    main {
-      padding-top: 68px;
-      padding-bottom: 88px;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      position: relative;
-      height: 90vh; min-height: 560px; max-height: 900px;
-      overflow: hidden; cursor: pointer;
-    }
-    .hero__img {
-      width: 100%; height: 100%; object-fit: cover;
-      transition: transform 8s ease;
-    }
-    .hero:hover .hero__img { transform: scale(1.04); }
-    .hero__overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(14,14,13,0.85) 0%, rgba(14,14,13,0.15) 55%, transparent 100%);
-    }
+    /* HERO */
+    .hero { position:relative;height:90vh;min-height:500px;max-height:860px;overflow:hidden;display:block;text-decoration:none;cursor:pointer; }
+    .hero img { width:100%;height:100%;object-fit:cover;display:block;transition:transform 8s ease; }
+    .hero:hover img { transform:scale(1.04); }
+    .hero__scrim { position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.08) 55%,transparent 100%); }
     .hero__badge {
-      position: absolute; top: 40px; left: 40px;
-      background: var(--gold); color: var(--white);
-      font-size: 0.6rem; font-weight: 700;
-      letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 5px 12px; border-radius: 2px;
+      position:absolute;top:32px;left:32px;
+      background:var(--white);color:var(--black);
+      font-size:.55rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;
+      padding:5px 11px;border-radius:2px;
     }
-    .hero__content {
-      position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 48px 40px;
-      display: flex; align-items: flex-end; justify-content: space-between; gap: 24px;
+    .hero__body { position:absolute;bottom:0;left:0;right:0;padding:48px 40px;display:flex;align-items:flex-end;justify-content:space-between;gap:24px; }
+    .hero__eyebrow { font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:10px; }
+    .hero__title { font-family:var(--fh);font-size:clamp(2.8rem,7vw,5.5rem);font-weight:800;line-height:.92;letter-spacing:-.04em;color:var(--white);margin-bottom:10px; }
+    .hero__sub  { font-size:.875rem;color:rgba(255,255,255,.55);max-width:360px;line-height:1.6; }
+    .hero__btn  {
+      flex-shrink:0;width:50px;height:50px;border-radius:50%;
+      border:1.5px solid rgba(255,255,255,.4);
+      display:flex;align-items:center;justify-content:center;
+      color:var(--white);text-decoration:none;transition:background .2s,border-color .2s;
     }
-    .hero__eyebrow {
-      font-size: 0.65rem; font-weight: 600;
-      letter-spacing: 0.25em; text-transform: uppercase;
-      color: var(--gold-light); margin-bottom: 10px;
-    }
-    .hero__title {
-      font-family: var(--font-display);
-      font-size: clamp(2.8rem, 7vw, 5.5rem);
-      font-weight: 800; line-height: 0.95;
-      letter-spacing: -0.03em; color: var(--white);
-      margin-bottom: 12px;
-    }
-    .hero__sub {
-      font-size: 0.9rem; color: rgba(255,255,255,0.65);
-      max-width: 380px; line-height: 1.6;
-    }
-    .hero__cta {
-      flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      width: 52px; height: 52px;
-      border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.4);
-      color: var(--white); transition: background 0.2s, border-color 0.2s;
-      text-decoration: none;
-    }
-    .hero__cta:hover {
-      background: var(--gold); border-color: var(--gold);
-    }
-    .hero__cta .material-symbols-outlined { font-size: 20px; }
-    @media (max-width: 640px) {
-      .hero__content { padding: 32px 20px; flex-direction: column; align-items: flex-start; }
-      .hero__badge { top: 20px; left: 20px; }
-    }
+    .hero__btn:hover { background:var(--white);color:var(--black);border-color:var(--white); }
+    .hero__btn .material-symbols-outlined { font-size:20px; }
+    @media(max-width:640px){ .hero__body{padding:28px 20px;flex-direction:column;align-items:flex-start;} .hero__badge{top:20px;left:20px;} }
 
-    /* ── SECTION ── */
-    .section { padding: 72px 40px; max-width: 1280px; margin: 0 auto; }
-    @media (max-width: 640px) { .section { padding: 48px 20px; } }
+    /* GRID SECTION */
+    .sec { padding:60px 40px;max-width:1280px;margin:0 auto; }
+    @media(max-width:640px){ .sec{padding:40px 20px;} }
+    .sec__hd { display:flex;align-items:baseline;justify-content:space-between;margin-bottom:32px; }
+    .sec__title { font-family:var(--fh);font-size:clamp(1.4rem,2.5vw,2rem);font-weight:800;letter-spacing:-.03em; }
+    .sec__ct    { font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--g4); }
 
-    .section__header {
-      display: flex; align-items: baseline; justify-content: space-between;
-      margin-bottom: 40px;
-    }
-    .section__title {
-      font-family: var(--font-display);
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      font-weight: 800; letter-spacing: -0.03em; color: var(--ink);
-    }
-    .section__count {
-      font-size: 0.65rem; font-weight: 700;
-      letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold);
-    }
+    .grid { display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px; }
+    @media(max-width:900px){ .grid{grid-template-columns:1fr 1fr;} .g-large{grid-column:span 2;} }
+    @media(max-width:540px){ .grid{grid-template-columns:1fr;} .g-large{grid-column:span 1;} }
 
-    /* ── BENTO GRID ── */
-    .bento {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      grid-template-rows: auto auto;
-      gap: 16px;
+    .gc {
+      display:block;text-decoration:none;color:inherit;position:relative;overflow:hidden;
+      border-radius:4px;background:var(--g1);border:1px solid var(--border);cursor:pointer;
+      transition:transform .3s,box-shadow .3s;
     }
-    @media (max-width: 900px) {
-      .bento { grid-template-columns: 1fr 1fr; }
-      .bento__item--large { grid-column: span 2; }
+    .gc:hover { transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,.1); }
+    .gc__ph { overflow:hidden; }
+    .g-large .gc__ph { aspect-ratio:16/10; }
+    .gc__ph:not(.g-large .gc__ph) { aspect-ratio:4/3; }
+    .gc__ph img { width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s; }
+    .gc:hover .gc__ph img { transform:scale(1.05); }
+    .gc__bd { padding:16px 18px 18px; }
+    .gc__tag {
+      display:inline-block;font-size:.55rem;font-weight:800;
+      letter-spacing:.14em;text-transform:uppercase;
+      padding:3px 8px;margin-bottom:7px;border-radius:2px;
     }
-    @media (max-width: 600px) {
-      .bento { grid-template-columns: 1fr; }
-      .bento__item--large { grid-column: span 1; }
+    .gc__tag-fill { background:var(--black);color:var(--white); }
+    .gc__tag-line { background:transparent;color:var(--black);border:1px solid rgba(0,0,0,.22); }
+    .gc__name { font-family:var(--fh);font-size:1.2rem;font-weight:800;letter-spacing:-.025em;margin-bottom:3px; }
+    .g-large .gc__name { font-size:1.7rem; }
+    .gc__meta { font-size:.76rem;color:var(--g4);line-height:1.5; }
+    .gc__qt   { font-size:.74rem;font-style:italic;color:var(--g4);line-height:1.65;margin-top:9px;padding-top:9px;border-top:1px solid var(--border); }
+    .gc__bk {
+      position:absolute;top:10px;right:10px;z-index:2;width:34px;height:34px;
+      border-radius:50%;background:rgba(255,255,255,.9);backdrop-filter:blur(6px);
+      display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;transition:background .2s;
     }
+    .gc__bk:hover { background:var(--white); }
+    .gc__bk .material-symbols-outlined { font-size:16px;color:var(--black); }
+    .gc__bk.saved .material-symbols-outlined { font-variation-settings:'FILL' 1; }
 
-    .bento__item {
-      cursor: pointer; position: relative; overflow: hidden;
-      border-radius: 6px; background: var(--sand-2);
-      text-decoration: none; display: block;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .bento__item:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(14,14,13,0.12); }
-    .bento__item--large { grid-column: span 2; }
-
-    .bento__img-wrap { overflow: hidden; }
-    .bento__item--large .bento__img-wrap { aspect-ratio: 16/10; }
-    .bento__img-wrap:not(.bento__item--large .bento__img-wrap) { aspect-ratio: 4/3; }
-    .bento__img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-    .bento__item:hover .bento__img { transform: scale(1.06); }
-
-    .bento__body { padding: 20px 20px 22px; }
-    .bento__tag {
-      display: inline-block;
-      font-size: 0.58rem; font-weight: 700;
-      letter-spacing: 0.18em; text-transform: uppercase;
-      padding: 3px 8px; border-radius: 2px;
-      margin-bottom: 8px;
-    }
-    .bento__tag--hot { background: rgba(176,139,78,0.15); color: var(--gold); }
-    .bento__tag--new { background: rgba(45,61,46,0.1); color: var(--moss); }
-    .bento__tag--ltd { background: rgba(186,26,26,0.1); color: #ba1a1a; }
-
-    .bento__name {
-      font-family: var(--font-display);
-      font-size: 1.35rem; font-weight: 800;
-      letter-spacing: -0.02em; color: var(--ink);
-      margin-bottom: 4px;
-    }
-    .bento__item--large .bento__name { font-size: 1.8rem; }
-    .bento__meta { font-size: 0.78rem; color: var(--ink-2); line-height: 1.5; }
-    .bento__quote {
-      font-family: var(--font-serif);
-      font-size: 0.78rem; font-style: italic;
-      color: rgba(14,14,13,0.5); line-height: 1.6;
-      margin-top: 12px; padding-top: 12px;
-      border-top: 1px solid var(--border);
-    }
-    .bento__save {
-      position: absolute; top: 12px; right: 12px;
-      width: 34px; height: 34px; border-radius: 50%;
-      background: rgba(255,255,255,0.85); backdrop-filter: blur(8px);
-      display: flex; align-items: center; justify-content: center;
-      border: none; cursor: pointer; transition: background 0.2s;
-      z-index: 2;
-    }
-    .bento__save:hover { background: var(--white); }
-    .bento__save .material-symbols-outlined { font-size: 17px; color: var(--ink); }
-    .bento__save.saved .material-symbols-outlined { font-variation-settings: 'FILL' 1; color: var(--gold); }
-
-    /* ── CALLOUT ── */
+    /* CALLOUT */
     .callout {
-      margin: 0 40px 72px;
-      max-width: calc(1280px - 80px);
-      margin-left: auto; margin-right: auto;
-      background: var(--moss);
-      border-radius: 10px;
-      padding: 72px 64px;
-      display: flex; align-items: center; justify-content: space-between;
-      gap: 48px;
+      margin:0 40px 64px;max-width:1200px;margin-left:auto;margin-right:auto;
+      background:var(--black);color:var(--white);border-radius:6px;padding:60px 56px;
+      display:flex;align-items:center;justify-content:space-between;gap:48px;
     }
-    @media (max-width: 768px) {
-      .callout { flex-direction: column; padding: 48px 28px; margin: 0 20px 48px; text-align: center; }
+    @media(max-width:768px){ .callout{flex-direction:column;padding:40px 28px;margin:0 20px 48px;text-align:center;} }
+    .callout__ey  { font-size:.58rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:10px; }
+    .callout__ttl { font-family:var(--fh);font-size:clamp(1.6rem,3vw,2.6rem);font-weight:800;letter-spacing:-.03em;line-height:1.05;max-width:400px; }
+    .callout__frm { flex-shrink:0;min-width:260px;display:flex;flex-direction:column;gap:10px; }
+    .callout__inp {
+      background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);
+      border-radius:3px;padding:11px 14px;font-family:var(--fb);font-size:.875rem;color:var(--white);outline:none;
+      transition:border-color .2s;
     }
-    .callout__label {
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.3em;
-      text-transform: uppercase; color: var(--gold-light); margin-bottom: 12px;
-    }
-    .callout__title {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-      font-weight: 800; letter-spacing: -0.03em;
-      color: var(--white); line-height: 1.1; max-width: 480px;
-    }
-    .callout__form {
-      flex-shrink: 0;
-      display: flex; flex-direction: column; gap: 12px;
-      min-width: 280px;
-    }
-    .callout__input {
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 4px; padding: 12px 16px;
-      font-family: var(--font-body); font-size: 0.875rem;
-      color: var(--white); outline: none;
-      transition: border-color 0.2s;
-    }
-    .callout__input::placeholder { color: rgba(255,255,255,0.35); }
-    .callout__input:focus { border-color: var(--gold-light); }
+    .callout__inp::placeholder { color:rgba(255,255,255,.28); }
+    .callout__inp:focus { border-color:rgba(255,255,255,.5); }
     .callout__btn {
-      background: var(--gold); color: var(--white);
-      border: none; border-radius: 4px;
-      padding: 12px 24px; font-family: var(--font-body);
-      font-size: 0.75rem; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      cursor: pointer; transition: background 0.2s;
+      background:var(--white);color:var(--black);border:none;border-radius:3px;
+      padding:11px 20px;font-family:var(--fb);font-size:.7rem;font-weight:700;
+      letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:opacity .2s;
     }
-    .callout__btn:hover { background: var(--gold-light); }
+    .callout__btn:hover { opacity:.85; }
 
-    /* ── BOTTOM NAV ── */
-    .bottom-nav {
-      display: none;
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
-      background: rgba(244,241,236,0.96); backdrop-filter: blur(20px);
-      border-top: 1px solid var(--border);
-      padding: 10px 0 env(safe-area-inset-bottom, 0);
+    /* BOTTOM NAV */
+    .bnav {
+      display:none;
+      position:fixed;bottom:0;left:0;right:0;z-index:200;
+      background:rgba(255,255,255,.97);backdrop-filter:blur(16px);
+      border-top:1px solid var(--border);
+      padding:10px 0 env(safe-area-inset-bottom,0);
     }
-    @media (max-width: 768px) { .bottom-nav { display: flex; justify-content: space-around; align-items: center; } }
+    @media(max-width:768px){ .bnav{display:flex;justify-content:space-around;align-items:center;} }
+    .ni { display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;padding:4px 16px;color:rgba(0,0,0,.28);transition:color .2s;text-decoration:none; }
+    .ni.on { color:var(--black); }
+    .ni:hover:not(.on) { color:rgba(0,0,0,.6); }
+    .ni .material-symbols-outlined { font-size:22px; }
+    .ni__lb { font-size:.56rem;text-transform:uppercase;letter-spacing:.1em;font-weight:600; }
 
-    .nav-item {
-      display: flex; flex-direction: column; align-items: center; gap: 3px;
-      cursor: pointer; padding: 4px 16px;
-      color: rgba(14,14,13,0.35); transition: color 0.2s;
-      text-decoration: none;
-    }
-    .nav-item.active { color: var(--gold); }
-    .nav-item:hover:not(.active) { color: var(--ink); }
-    .nav-item .material-symbols-outlined { font-size: 22px; }
-    .nav-item__label { font-size: 0.6rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 600; }
-
-    /* ── FAB ── */
     .fab {
-      position: fixed; bottom: 96px; right: 24px;
-      width: 52px; height: 52px; border-radius: 50%;
-      background: var(--moss); color: var(--white);
-      border: none; cursor: pointer; z-index: 150;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 20px rgba(45,61,46,0.35);
-      transition: transform 0.2s, background 0.2s;
+      position:fixed;bottom:84px;right:20px;z-index:150;width:50px;height:50px;border-radius:50%;
+      background:var(--black);color:var(--white);border:none;cursor:pointer;
+      display:flex;align-items:center;justify-content:center;
+      box-shadow:0 4px 20px rgba(0,0,0,.3);transition:transform .2s;
     }
-    .fab:hover { transform: scale(1.08); background: var(--gold); }
-    @media (min-width: 769px) { .fab { bottom: 32px; right: 32px; } }
+    .fab:hover { transform:scale(1.08); }
+    @media(min-width:769px){ .fab{bottom:28px;right:28px;} }
   </style>
 </head>
 <body>
 
-  <!-- Top Bar -->
-  <header class="topbar">
-    <div class="topbar__logo">賞屋<span>獵人</span></div>
-    <nav class="topbar__nav">
-      <a href="index.html" class="active">Explore</a>
-      <a href="diary.html">Diary</a>
-      <a href="#">Saved</a>
-      <a href="#">Profile</a>
-    </nav>
-    <div class="topbar__actions">
-      <div class="search-box">
-        <span class="material-symbols-outlined">search</span>
-        <input type="text" placeholder="搜尋建案…"/>
-      </div>
-    </div>
-  </header>
-
-  <main>
-
-    <!-- Hero -->
-    <a class="hero anim d1" href="diary.html">
-      <img class="hero__img"
-        src="https://lh3.googleusercontent.com/aida/ADBb0ugklxDN6UbvaP3YZ5FNccIVX8xakDaDBt2BvnXRteeQAxeFazhtQajtzT_zYV5uPfajplWml9eazRi4znVkiOtqWr-bJoyYAsA0UNZ65o9Dv4gLZDwpejkIAclGs8_BZwbYozWYhXLUCF6UX0YkSj8YGO9GnfW7nGVwi7WU3LNtDEYvws_P7EjYLP30KVuH0sBxYug7Umh3WVcLhYPzGUKtsVwBH747mE6KE11YyzmLSRzYLjQMFSvuDvPQDLq8nLaCcoNUT0Gl3A"
-        alt="湖芯AIT 建築外觀"/>
-      <div class="hero__overlay"></div>
-      <div class="hero__badge">Editor's Choice</div>
-      <div class="hero__content">
-        <div>
-          <div class="hero__eyebrow">Featured Project · 內湖星雲重劃區</div>
-          <h1 class="hero__title">湖芯AIT</h1>
-          <p class="hero__sub">The pinnacle of architectural curation in Neihu's golden corridor — 距 AIT 160m</p>
-        </div>
-        <a class="hero__cta" href="diary.html" onclick="event.stopPropagation()">
-          <span class="material-symbols-outlined">arrow_forward</span>
-        </a>
-      </div>
-    </a>
-
-    <!-- Curated Collections -->
-    <div class="section">
-      <div class="section__header anim d2">
-        <h2 class="section__title">Curated Collections</h2>
-        <span class="section__count">12 Projects Available</span>
-      </div>
-
-      <div class="bento">
-
-        <!-- Large Card -->
-        <a class="bento__item bento__item--large anim d3" href="#">
-          <div class="bento__img-wrap">
-            <img class="bento__img"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW2LtfLxDw_xtO9kvKBxIEhZxuGeDJMs0Kt9_vhRfaXuEuVtszq_B4QKne7Y_HFfk1972f3dXkXF3coHFEgtWVe113Ofb1oPEKsL9YKhagmuu3nSrjNRRWkW_Uvat9YkYJdo3sslQeluHpLjU4A8qAKoPVyVqXQeOqgcpeLbGj8w9z5t4R_7BcN4VNc11Hsk8eXxED_PP1YbPVMzN1BgASmtzsMIwLXTzAjEbKyRRqkJHU6P83j8mr72ErCgqQ3e3If93_n2SGO10"
-              alt="大湖之境 室內"/>
-          </div>
-          <button class="bento__save" onclick="toggleSave(this, event)" aria-label="收藏">
-            <span class="material-symbols-outlined">bookmark</span>
-          </button>
-          <div class="bento__body">
-            <span class="bento__tag bento__tag--hot">熱門</span>
-            <div class="bento__name">大湖之境</div>
-            <div class="bento__meta">36 – 40 坪 · 三房設計 · 捷運內湖站 400m</div>
-            <div class="bento__quote">"A masterclass in organic brutalism, where concrete softens against the backdrop of Dahu Park."</div>
-          </div>
-        </a>
-
-        <!-- Small Card 1 -->
-        <a class="bento__item anim d4" href="#">
-          <div class="bento__img-wrap">
-            <img class="bento__img"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGdKvI0ySj8ed80fzHFLq75l8Q0Ehj8C5iMS1hqeDXVQpdb2EzGy7qH8jKcEx4Lyo0xRg207IO_12DpbHNjIUUQDqjYJLO9BnUjDAQQQyipYe2chaL7-3Blq0HXpbAvWSwWrldEMFn32RpH_ql3N-bN0JW46chFqYQxv0mr4He3fMXvLKyYTpQfCLJoF0rJmuVc-f6zDEcu7wNc47lrZQUQEljUfL609b0Ej20jdYqA2ahfU88PmJWDMCmL1ZcfoTcYxpJvQEyw_s"
-              alt="星雲居"/>
-          </div>
-          <button class="bento__save" onclick="toggleSave(this, event)" aria-label="收藏">
-            <span class="material-symbols-outlined">bookmark</span>
-          </button>
-          <div class="bento__body">
-            <span class="bento__tag bento__tag--new">新上架</span>
-            <div class="bento__name">星雲居</div>
-            <div class="bento__meta">24 – 32 坪 · 精緻兩房</div>
-          </div>
-        </a>
-
-        <!-- Small Card 2 -->
-        <a class="bento__item anim d5" href="#">
-          <div class="bento__img-wrap">
-            <img class="bento__img"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYYMNGjFCjGA6t5NnQwZFtgdlk0ldV88G_e_zDtj5662TTv5aFb4-2H0oHUWDrxmrKv0a4py4W94VWITofDVTPvBgGe3J9PzjvzFtPNqwLNmMMfLPPBg8cy2Fr2M_RmZEHdt2LTXbo5si83lw6J58wnTwGd6Wdn01NJKqaCZO8BRpVZyA6Ho2acurjB4r_OQmL1UOgKdENLFMxmD2zXaZ2rYkqHpJc0sv5iU0iEha7XlJhJ7NguyF9OJQ6K3LhVHpKLj8M4A_4Z9w"
-              alt="文德森鄰"/>
-          </div>
-          <button class="bento__save" onclick="toggleSave(this, event)" aria-label="收藏">
-            <span class="material-symbols-outlined">bookmark</span>
-          </button>
-          <div class="bento__body">
-            <span class="bento__tag bento__tag--ltd">限量</span>
-            <div class="bento__name">文德森鄰</div>
-            <div class="bento__meta">45 – 60 坪 · 四房大境</div>
-          </div>
-        </a>
-
-        <!-- Small Card 3 -->
-        <a class="bento__item anim d5" href="#">
-          <div class="bento__img-wrap">
-            <img class="bento__img"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzsruBcl1vktZiEgB8P571T2mEdHgoTK7DWrytBe9SIxjLXD_B7Bzj0gGzBhZuo7jR_QVFL5IwFZVbxoZYln0QXSUILsYUf1qDFYNfJ_uJofVhHBe__-OPl3eCvnclQ6dJzod8lDj5mdm-bGgYOu1F5WwL4sA8_v-_IqpqSuZibxQsDwomycUVJpTpZgPee4aq8BHURSoarY8jywOQw4sZTkWOdoxsXbQ-9H2tpPeYA5QvVtMZyk2Qlmfbwf8rFg06kRZ8yoz4rcQ"
-              alt="湖芯AIT"/>
-          </div>
-          <button class="bento__save" onclick="toggleSave(this, event)" aria-label="收藏">
-            <span class="material-symbols-outlined">bookmark</span>
-          </button>
-          <div class="bento__body">
-            <span class="bento__tag bento__tag--hot">精選</span>
-            <div class="bento__name">湖芯AIT</div>
-            <div class="bento__meta">36.58 坪 · 全三房 · AIT 特區</div>
-          </div>
-        </a>
-
-      </div>
-    </div>
-
-    <!-- Newsletter Callout -->
-    <div class="callout anim d6">
-      <div>
-        <div class="callout__label">Weekly Curation</div>
-        <h2 class="callout__title">每週精選建案<br/>策展人報告書</h2>
-      </div>
-      <div class="callout__form">
-        <input class="callout__input" type="email" placeholder="輸入 Email…"/>
-        <button class="callout__btn">訂閱週報</button>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- Bottom Nav (Mobile) -->
-  <nav class="bottom-nav">
-    <a class="nav-item active" href="index.html">
-      <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">explore</span>
-      <span class="nav-item__label">Explore</span>
-    </a>
-    <a class="nav-item" href="diary.html">
-      <span class="material-symbols-outlined">import_contacts</span>
-      <span class="nav-item__label">Diary</span>
-    </a>
-    <a class="nav-item" href="#">
-      <span class="material-symbols-outlined">bookmark</span>
-      <span class="nav-item__label">Saved</span>
-    </a>
-    <a class="nav-item" href="#">
-      <span class="material-symbols-outlined">person</span>
-      <span class="nav-item__label">Profile</span>
-    </a>
+<header class="top">
+  <a class="top__logo" href="index.html">湖芯AIT</a>
+  <nav class="top__nav">
+    <a href="index.html" class="on">Explore</a>
+    <a href="diary.html">Diary</a>
+    <a href="#">Saved</a>
+    <a href="#">Profile</a>
   </nav>
+  <div class="top__search">
+    <span class="material-symbols-outlined">search</span>
+    <input type="text" placeholder="搜尋建案…"/>
+  </div>
+</header>
 
-  <!-- FAB -->
-  <button class="fab" title="查看地圖" onclick="window.open('https://www.google.com/maps/search/?api=1&query=台北內湖區金湖路', '_blank')">
-    <span class="material-symbols-outlined">map</span>
-  </button>
+<main>
+  <!-- Hero -->
+  <a class="hero a d1" href="diary.html">
+    <img src="https://lh3.googleusercontent.com/aida/ADBb0ugklxDN6UbvaP3YZ5FNccIVX8xakDaDBt2BvnXRteeQAxeFazhtQajtzT_zYV5uPfajplWml9eazRi4znVkiOtqWr-bJoyYAsA0UNZ65o9Dv4gLZDwpejkIAclGs8_BZwbYozWYhXLUCF6UX0YkSj8YGO9GnfW7nGVwi7WU3LNtDEYvws_P7EjYLP30KVuH0sBxYug7Umh3WVcLhYPzGUKtsVwBH747mE6KE11YyzmLSRzYLjQMFSvuDvPQDLq8nLaCcoNUT0Gl3A" alt="湖芯AIT"/>
+    <div class="hero__scrim"></div>
+    <div class="hero__badge">Editor's Choice</div>
+    <div class="hero__body">
+      <div>
+        <div class="hero__eyebrow">Featured Project · 內湖星雲重劃區</div>
+        <h1 class="hero__title">湖芯AIT</h1>
+        <p class="hero__sub">The pinnacle of architectural curation in Neihu's golden corridor — 距 AIT 160m</p>
+      </div>
+      <a class="hero__btn" href="diary.html" onclick="event.stopPropagation()">
+        <span class="material-symbols-outlined">arrow_forward</span>
+      </a>
+    </div>
+  </a>
 
-  <script>
-    function toggleSave(btn, e) {
-      e.preventDefault(); e.stopPropagation();
-      btn.classList.toggle('saved');
-    }
-  </script>
+  <!-- Cards -->
+  <div class="sec">
+    <div class="sec__hd a d2">
+      <h2 class="sec__title">Curated Collections</h2>
+      <span class="sec__ct">12 Projects</span>
+    </div>
+    <div class="grid">
+
+      <a class="gc g-large a d3" href="#">
+        <div class="gc__ph">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW2LtfLxDw_xtO9kvKBxIEhZxuGeDJMs0Kt9_vhRfaXuEuVtszq_B4QKne7Y_HFfk1972f3dXkXF3coHFEgtWVe113Ofb1oPEKsL9YKhagmuu3nSrjNRRWkW_Uvat9YkYJdo3sslQeluHpLjU4A8qAKoPVyVqXQeOqgcpeLbGj8w9z5t4R_7BcN4VNc11Hsk8eXxED_PP1YbPVMzN1BgASmtzsMIwLXTzAjEbKyRRqkJHU6P83j8mr72ErCgqQ3e3If93_n2SGO10" alt="大湖之境"/>
+        </div>
+        <button class="gc__bk" onclick="toggleSave(this,event)"><span class="material-symbols-outlined">bookmark</span></button>
+        <div class="gc__bd">
+          <span class="gc__tag gc__tag-fill">熱門</span>
+          <div class="gc__name">大湖之境</div>
+          <div class="gc__meta">36 – 40 坪 · 三房設計 · 捷運內湖站 400m</div>
+          <div class="gc__qt">"A masterclass in organic brutalism, where concrete softens against the backdrop of Dahu Park."</div>
+        </div>
+      </a>
+
+      <a class="gc a d4" href="#">
+        <div class="gc__ph">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGdKvI0ySj8ed80fzHFLq75l8Q0Ehj8C5iMS1hqeDXVQpdb2EzGy7qH8jKcEx4Lyo0xRg207IO_12DpbHNjIUUQDqjYJLO9BnUjDAQQQyipYe2chaL7-3Blq0HXpbAvWSwWrldEMFn32RpH_ql3N-bN0JW46chFqYQxv0mr4He3fMXvLKyYTpQfCLJoF0rJmuVc-f6zDEcu7wNc47lrZQUQEljUfL609b0Ej20jdYqA2ahfU88PmJWDMCmL1ZcfoTcYxpJvQEyw_s" alt="星雲居"/>
+        </div>
+        <button class="gc__bk" onclick="toggleSave(this,event)"><span class="material-symbols-outlined">bookmark</span></button>
+        <div class="gc__bd">
+          <span class="gc__tag gc__tag-line">新上架</span>
+          <div class="gc__name">星雲居</div>
+          <div class="gc__meta">24 – 32 坪 · 精緻兩房</div>
+        </div>
+      </a>
+
+      <a class="gc a d5" href="#">
+        <div class="gc__ph">
+          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYYMNGjFCjGA6t5NnQwZFtgdlk0ldV88G_e_zDtj5662TTv5aFb4-2H0oHUWDrxmrKv0a4py4W94VWITofDVTPvBgGe3J9PzjvzFtPNqwLNmMMfLPPBg8cy2Fr2M_RmZEHdt2LTXbo5si83lw6J58wnTwGd6Wdn01NJKqaCZO8BRpVZyA6Ho2acurjB4r_OQmL1UOgKdENLFMxmD2zXaZ2rYkqHpJc0sv5iU0iEha7XlJhJ7NguyF9OJQ6K3LhVHpKLj8M4A_4Z9w" alt="文德森鄰"/>
+        </div>
+        <button class="gc__bk" onclick="toggleSave(this,event)"><span class="material-symbols-outlined">bookmark</span></button>
+        <div class="gc__bd">
+          <span class="gc__tag gc__tag-fill">限量</span>
+          <div class="gc__name">文德森鄰</div>
+          <div class="gc__meta">45 – 60 坪 · 四房大境</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- Callout -->
+  <div class="callout a d6">
+    <div>
+      <div class="callout__ey">Weekly Curation</div>
+      <h2 class="callout__ttl">每週精選建案<br/>策展人報告書</h2>
+    </div>
+    <div class="callout__frm">
+      <input class="callout__inp" type="email" placeholder="輸入 Email…"/>
+      <button class="callout__btn">訂閱週報</button>
+    </div>
+  </div>
+</main>
+
+<nav class="bnav">
+  <a class="ni on" href="index.html">
+    <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">explore</span>
+    <span class="ni__lb">Explore</span>
+  </a>
+  <a class="ni" href="diary.html">
+    <span class="material-symbols-outlined">import_contacts</span>
+    <span class="ni__lb">Diary</span>
+  </a>
+  <a class="ni" href="#">
+    <span class="material-symbols-outlined">bookmark</span>
+    <span class="ni__lb">Saved</span>
+  </a>
+  <a class="ni" href="#">
+    <span class="material-symbols-outlined">person</span>
+    <span class="ni__lb">Profile</span>
+  </a>
+</nav>
+
+<button class="fab" onclick="window.open('https://www.google.com/maps/search/?api=1&query=台北內湖區金湖路+AIT','_blank')">
+  <span class="material-symbols-outlined">map</span>
+</button>
+
+<script>
+  function toggleSave(btn, e) {
+    e.preventDefault(); e.stopPropagation();
+    btn.classList.toggle('saved');
+  }
+</script>
 </body>
 </html>
