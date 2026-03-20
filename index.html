@@ -176,7 +176,7 @@
   <a class="top__logo" href="index.html">湖芯AIT</a>
   <nav class="top__nav">
     <a href="index.html" class="on">Explore</a>
-    <a href="diary.html">Diary</a>
+    <a href="diary-huxin.html">Diary</a>
     <a href="#">Saved</a>
     <a href="#">Profile</a>
   </nav>
@@ -188,7 +188,7 @@
 
 <main>
   <!-- Hero -->
-  <a class="hero a d1" href="diary.html">
+  <a class="hero a d1" href="diary-huxin.html">
     <img src="https://lh3.googleusercontent.com/aida/ADBb0ugklxDN6UbvaP3YZ5FNccIVX8xakDaDBt2BvnXRteeQAxeFazhtQajtzT_zYV5uPfajplWml9eazRi4znVkiOtqWr-bJoyYAsA0UNZ65o9Dv4gLZDwpejkIAclGs8_BZwbYozWYhXLUCF6UX0YkSj8YGO9GnfW7nGVwi7WU3LNtDEYvws_P7EjYLP30KVuH0sBxYug7Umh3WVcLhYPzGUKtsVwBH747mE6KE11YyzmLSRzYLjQMFSvuDvPQDLq8nLaCcoNUT0Gl3A" alt="湖芯AIT"/>
     <div class="hero__scrim"></div>
     <div class="hero__badge">Editor's Choice</div>
@@ -198,7 +198,7 @@
         <h1 class="hero__title">湖芯AIT</h1>
         <p class="hero__sub">The pinnacle of architectural curation in Neihu's golden corridor — 距 AIT 160m</p>
       </div>
-      <a class="hero__btn" href="diary.html" onclick="event.stopPropagation()">
+      <a class="hero__btn" href="diary-huxin.html" onclick="event.stopPropagation()">
         <span class="material-symbols-outlined">arrow_forward</span>
       </a>
     </div>
@@ -208,44 +208,47 @@
   <div class="sec">
     <div class="sec__hd a d2">
       <h2 class="sec__title">Curated Collections</h2>
-      <span class="sec__ct">12 Projects</span>
+      <span class="sec__ct">2 建案上線 · 持續更新</span>
     </div>
     <div class="grid">
 
-      <a class="gc g-large a d3" href="#">
+      <!-- 湖芯AIT -->
+      <a class="gc g-large a d3" href="diary-huxin.html">
+        <div class="gc__ph">
+          <img src="https://lh3.googleusercontent.com/aida/ADBb0ugklxDN6UbvaP3YZ5FNccIVX8xakDaDBt2BvnXRteeQAxeFazhtQajtzT_zYV5uPfajplWml9eazRi4znVkiOtqWr-bJoyYAsA0UNZ65o9Dv4gLZDwpejkIAclGs8_BZwbYozWYhXLUCF6UX0YkSj8YGO9GnfW7nGVwi7WU3LNtDEYvws_P7EjYLP30KVuH0sBxYug7Umh3WVcLhYPzGUKtsVwBH747mE6KE11YyzmLSRzYLjQMFSvuDvPQDLq8nLaCcoNUT0Gl3A" alt="湖芯AIT"/>
+        </div>
+        <button class="gc__bk" onclick="toggleSave(this,event)"><span class="material-symbols-outlined">bookmark</span></button>
+        <div class="gc__bd">
+          <span class="gc__tag gc__tag-fill">精選</span>
+          <div class="gc__name">湖芯AIT</div>
+          <div class="gc__meta">36.58 坪 · 全三房 · 內湖星雲重劃區 · 距 AIT 160m</div>
+          <div class="gc__qt">"日式清水模線條，RC 岩盤基礎，三面採光頂配戶型。"</div>
+        </div>
+      </a>
+
+      <!-- 昇樺知玉 -->
+      <a class="gc a d4" href="diary-shenghua.html">
+        <div class="gc__ph">
+          <img src="shenghua.jpg" alt="昇樺知玉"/>
+        </div>
+        <button class="gc__bk" onclick="toggleSave(this,event)"><span class="material-symbols-outlined">bookmark</span></button>
+        <div class="gc__bd">
+          <span class="gc__tag gc__tag-line">新上架</span>
+          <div class="gc__name">昇樺知玉</div>
+          <div class="gc__meta">34.61 坪 · 石牌雙明星學區 · 陽明山景觀</div>
+        </div>
+      </a>
+
+      <!-- 大湖之境（即將） -->
+      <a class="gc a d5" href="#">
         <div class="gc__ph">
           <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW2LtfLxDw_xtO9kvKBxIEhZxuGeDJMs0Kt9_vhRfaXuEuVtszq_B4QKne7Y_HFfk1972f3dXkXF3coHFEgtWVe113Ofb1oPEKsL9YKhagmuu3nSrjNRRWkW_Uvat9YkYJdo3sslQeluHpLjU4A8qAKoPVyVqXQeOqgcpeLbGj8w9z5t4R_7BcN4VNc11Hsk8eXxED_PP1YbPVMzN1BgASmtzsMIwLXTzAjEbKyRRqkJHU6P83j8mr72ErCgqQ3e3If93_n2SGO10" alt="大湖之境"/>
         </div>
         <button class="gc__bk" onclick="toggleSave(this,event)"><span class="material-symbols-outlined">bookmark</span></button>
         <div class="gc__bd">
-          <span class="gc__tag gc__tag-fill">熱門</span>
+          <span class="gc__tag gc__tag-fill">即將上架</span>
           <div class="gc__name">大湖之境</div>
           <div class="gc__meta">36 – 40 坪 · 三房設計 · 捷運內湖站 400m</div>
-          <div class="gc__qt">"A masterclass in organic brutalism, where concrete softens against the backdrop of Dahu Park."</div>
-        </div>
-      </a>
-
-      <a class="gc a d4" href="#">
-        <div class="gc__ph">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGdKvI0ySj8ed80fzHFLq75l8Q0Ehj8C5iMS1hqeDXVQpdb2EzGy7qH8jKcEx4Lyo0xRg207IO_12DpbHNjIUUQDqjYJLO9BnUjDAQQQyipYe2chaL7-3Blq0HXpbAvWSwWrldEMFn32RpH_ql3N-bN0JW46chFqYQxv0mr4He3fMXvLKyYTpQfCLJoF0rJmuVc-f6zDEcu7wNc47lrZQUQEljUfL609b0Ej20jdYqA2ahfU88PmJWDMCmL1ZcfoTcYxpJvQEyw_s" alt="星雲居"/>
-        </div>
-        <button class="gc__bk" onclick="toggleSave(this,event)"><span class="material-symbols-outlined">bookmark</span></button>
-        <div class="gc__bd">
-          <span class="gc__tag gc__tag-line">新上架</span>
-          <div class="gc__name">星雲居</div>
-          <div class="gc__meta">24 – 32 坪 · 精緻兩房</div>
-        </div>
-      </a>
-
-      <a class="gc a d5" href="#">
-        <div class="gc__ph">
-          <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuDYYMNGjFCjGA6t5NnQwZFtgdlk0ldV88G_e_zDtj5662TTv5aFb4-2H0oHUWDrxmrKv0a4py4W94VWITofDVTPvBgGe3J9PzjvzFtPNqwLNmMMfLPPBg8cy2Fr2M_RmZEHdt2LTXbo5si83lw6J58wnTwGd6Wdn01NJKqaCZO8BRpVZyA6Ho2acurjB4r_OQmL1UOgKdENLFMxmD2zXaZ2rYkqHpJc0sv5iU0iEha7XlJhJ7NguyF9OJQ6K3LhVHpKLj8M4A_4Z9w" alt="文德森鄰"/>
-        </div>
-        <button class="gc__bk" onclick="toggleSave(this,event)"><span class="material-symbols-outlined">bookmark</span></button>
-        <div class="gc__bd">
-          <span class="gc__tag gc__tag-fill">限量</span>
-          <div class="gc__name">文德森鄰</div>
-          <div class="gc__meta">45 – 60 坪 · 四房大境</div>
         </div>
       </a>
 
@@ -270,7 +273,7 @@
     <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1;">explore</span>
     <span class="ni__lb">Explore</span>
   </a>
-  <a class="ni" href="diary.html">
+  <a class="ni" href="diary-huxin.html">
     <span class="material-symbols-outlined">import_contacts</span>
     <span class="ni__lb">Diary</span>
   </a>
