@@ -204,6 +204,59 @@
     .mm__open { display:inline-flex;align-items:center;gap:5px;background:var(--black);color:var(--white);border:none;border-radius:3px;padding:8px 14px;font-family:var(--fb);font-size:.7rem;font-weight:600;cursor:pointer;text-decoration:none;transition:opacity .2s; }
     .mm__open:hover { opacity:.8; }
     .mm__open .material-symbols-outlined { font-size:14px; }
+
+    /* ══ TOAST ══ */
+    .toast {
+      position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(10px);
+      background:rgba(10,10,10,.92);color:#fff;padding:9px 22px;border-radius:999px;
+      font-size:.78rem;font-weight:500;z-index:9999;opacity:0;
+      transition:opacity .25s,transform .25s;pointer-events:none;
+      white-space:nowrap;backdrop-filter:blur(8px);
+    }
+    .toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
+    @media(min-width:769px){ .toast{bottom:40px;} }
+
+    /* ══ MORE MENU ══ */
+    .more-wrap { position:relative; }
+    .more-menu {
+      position:absolute;top:calc(100% + 10px);right:-8px;
+      background:rgba(22,22,22,.97);backdrop-filter:blur(16px);
+      border-radius:10px;border:1px solid rgba(255,255,255,.1);
+      min-width:168px;overflow:hidden;box-shadow:0 12px 40px rgba(0,0,0,.5);
+      z-index:500;opacity:0;transform:translateY(-6px) scale(.97);
+      transition:opacity .18s,transform .18s;pointer-events:none;
+    }
+    .more-menu.on { opacity:1;transform:none;pointer-events:auto; }
+    .more-menu button {
+      display:flex;align-items:center;gap:10px;width:100%;
+      padding:12px 18px;background:none;border:none;
+      color:rgba(255,255,255,.88);font-family:var(--fb);font-size:.82rem;
+      text-align:left;cursor:pointer;transition:background .15s;
+    }
+    .more-menu button .material-symbols-outlined { font-size:16px;color:rgba(255,255,255,.5); }
+    .more-menu button:hover { background:rgba(255,255,255,.1); }
+    .more-menu hr { border:none;border-top:1px solid rgba(255,255,255,.08);margin:2px 0; }
+
+    /* ══ SHARE SHEET ══ */
+    .ssheet {
+      display:none;position:fixed;inset:0;z-index:800;
+      background:rgba(0,0,0,.45);align-items:flex-end;justify-content:center;
+    }
+    .ssheet.on { display:flex; }
+    .ssheet__box {
+      background:var(--white);border-radius:16px 16px 0 0;padding:22px 20px 28px;
+      width:100%;max-width:480px;animation:slideUp .25s cubic-bezier(.22,1,.36,1) both;
+    }
+    @keyframes slideUp { from{transform:translateY(100%)}to{transform:translateY(0)} }
+    .ssheet__ttl { font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g4);text-align:center;margin-bottom:20px; }
+    .ssheet__acts { display:flex;justify-content:center;gap:28px;margin-bottom:20px; }
+    .ssheet__act { display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;background:none;border:none;font-family:var(--fb); }
+    .ssheet__icon { width:54px;height:54px;border-radius:50%;background:var(--g1);display:flex;align-items:center;justify-content:center;transition:background .2s; }
+    .ssheet__act:hover .ssheet__icon { background:var(--g2); }
+    .ssheet__icon .material-symbols-outlined { font-size:22px; }
+    .ssheet__label { font-size:.68rem;color:var(--g4); }
+    .ssheet__cancel { display:block;width:100%;padding:13px;background:var(--g1);border:none;border-radius:10px;font-family:var(--fb);font-size:.85rem;font-weight:600;cursor:pointer;transition:background .2s; }
+    .ssheet__cancel:hover { background:var(--g2); }
   </style>
 </head>
 <body>
@@ -250,8 +303,22 @@
     </a>
     <a class="top__logo" href="index.html">賞屋獵人</a>
     <div class="top__acts">
-      <span class="material-symbols-outlined">share</span>
-      <span class="material-symbols-outlined">more_vert</span>
+      <span class="material-symbols-outlined" onclick="sharePost()" title="分享">share</span>
+      <div class="more-wrap">
+        <span class="material-symbols-outlined" onclick="toggleMore(event)" title="更多選項">more_vert</span>
+        <div class="more-menu" id="more-menu">
+          <button onclick="sharePost();closeMore()">
+            <span class="material-symbols-outlined">link</span>複製頁面連結
+          </button>
+          <button onclick="shareToLine();closeMore()">
+            <span class="material-symbols-outlined">chat</span>分享到 LINE
+          </button>
+          <hr/>
+          <button onclick="showToast('感謝您的回報！');closeMore()">
+            <span class="material-symbols-outlined">flag</span>回報問題
+          </button>
+        </div>
+      </div>
     </div>
   </header>
 
@@ -380,15 +447,15 @@
         <span class="material-symbols-outlined">favorite</span>
         <span class="n" id="like-n">86</span>
       </button>
-      <button class="ab">
+      <button class="ab" onclick="showToast('留言功能即將推出 💬')">
         <span class="material-symbols-outlined">chat_bubble</span>
         <span class="n">12</span>
       </button>
-      <button class="ab">
+      <button class="ab" id="btn-fwd" onclick="toggleForward(this)">
         <span class="material-symbols-outlined">autorenew</span>
-        <span class="n">4</span>
+        <span class="n" id="fwd-n">4</span>
       </button>
-      <button class="ab ab-r">
+      <button class="ab ab-r" onclick="openSendSheet()">
         <span class="material-symbols-outlined">send</span>
       </button>
     </div>
@@ -401,6 +468,31 @@
       </nav>
     </footer>
   </main>
+
+  <!-- Toast -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Share Sheet -->
+  <div class="ssheet" id="ssheet" onclick="if(event.target===this)closeSendSheet()">
+    <div class="ssheet__box">
+      <div class="ssheet__ttl">分享此建案</div>
+      <div class="ssheet__acts">
+        <button class="ssheet__act" onclick="sharePost();closeSendSheet()">
+          <div class="ssheet__icon"><span class="material-symbols-outlined">link</span></div>
+          <span class="ssheet__label">複製連結</span>
+        </button>
+        <button class="ssheet__act" onclick="shareToLine();closeSendSheet()">
+          <div class="ssheet__icon"><span class="material-symbols-outlined">chat</span></div>
+          <span class="ssheet__label">LINE</span>
+        </button>
+        <button class="ssheet__act" onclick="shareNative();closeSendSheet()">
+          <div class="ssheet__icon"><span class="material-symbols-outlined">ios_share</span></div>
+          <span class="ssheet__label">更多</span>
+        </button>
+      </div>
+      <button class="ssheet__cancel" onclick="closeSendSheet()">取消</button>
+    </div>
+  </div>
 
   <nav class="bnav">
     <a class="ni" href="index.html"><span class="material-symbols-outlined">explore</span><span class="ni__lb">Explore</span></a>
@@ -428,11 +520,69 @@
     document.getElementById('mm').addEventListener('click',function(e){if(e.target===this)mmClose();});
 
     let liked=false,likeN=86;
-    function toggleLike(){liked=!liked;likeN+=liked?1:-1;document.getElementById('btn-like').classList.toggle('liked',liked);document.getElementById('like-n').textContent=likeN;}
+    function toggleLike(){
+      liked=!liked;likeN+=liked?1:-1;
+      document.getElementById('btn-like').classList.toggle('liked',liked);
+      document.getElementById('like-n').textContent=likeN;
+      showToast(liked ? '已喜歡此建案 ❤️' : '已取消喜歡');
+    }
+
+    /* ══ TOAST ══ */
+    let _toastTimer;
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg; t.classList.add('show');
+      clearTimeout(_toastTimer);
+      _toastTimer = setTimeout(()=>t.classList.remove('show'), 2400);
+    }
+
+    /* ══ SHARE ══ */
+    async function sharePost() {
+      const url = window.location.href;
+      try {
+        await navigator.clipboard.writeText(url);
+        showToast('連結已複製到剪貼板 ✓');
+      } catch {
+        const el = document.createElement('textarea');
+        el.value=url; el.style.cssText='position:fixed;opacity:0';
+        document.body.appendChild(el); el.select();
+        document.execCommand('copy'); document.body.removeChild(el);
+        showToast('連結已複製到剪貼板 ✓');
+      }
+    }
+    function shareToLine() {
+      window.open(`https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(window.location.href)}`,'_blank');
+    }
+    async function shareNative() {
+      if (navigator.share) {
+        try { await navigator.share({title:document.title,url:window.location.href}); return; }
+        catch(e) { if(e.name==='AbortError') return; }
+      }
+      sharePost();
+    }
+
+    /* ══ MORE MENU ══ */
+    function toggleMore(e) { e.stopPropagation(); document.getElementById('more-menu').classList.toggle('on'); }
+    function closeMore() { document.getElementById('more-menu').classList.remove('on'); }
+    document.addEventListener('click', closeMore);
+
+    /* ══ FORWARD ══ */
+    let forwarded=false, fwdN=4;
+    function toggleForward(btn) {
+      forwarded=!forwarded; fwdN+=forwarded?1:-1;
+      btn.style.color = forwarded ? '#27ae60' : '';
+      document.getElementById('fwd-n').textContent = fwdN;
+      showToast(forwarded ? '已轉發此建案 ✓' : '已取消轉發');
+    }
+
+    /* ══ SEND SHEET ══ */
+    function openSendSheet() { document.getElementById('ssheet').classList.add('on'); document.body.style.overflow='hidden'; }
+    function closeSendSheet() { document.getElementById('ssheet').classList.remove('on'); document.body.style.overflow=''; }
 
     document.addEventListener('keydown',e=>{
       if(document.getElementById('lb').classList.contains('on')){if(e.key==='ArrowRight')lbNext();if(e.key==='ArrowLeft')lbPrev();if(e.key==='Escape')lbClose();}
       if(document.getElementById('mm').classList.contains('on')&&e.key==='Escape')mmClose();
+      if(document.getElementById('ssheet').classList.contains('on')&&e.key==='Escape')closeSendSheet();
     });
   </script>
 </body>

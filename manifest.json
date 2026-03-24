@@ -1,0 +1,22 @@
+{
+  "name": "賞屋獵人",
+  "short_name": "賞屋獵人",
+  "description": "建案策展人報告書 — 精選台北優質建案深度評測",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#0a0a0a",
+  "lang": "zh-TW",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "categories": ["lifestyle", "real estate"]
+}

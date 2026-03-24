@@ -168,6 +168,24 @@
     }
     .fab:hover { transform:scale(1.08); }
     @media(min-width:769px){ .fab{bottom:28px;right:28px;} }
+
+    /* ══ TOAST ══ */
+    .toast {
+      position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(10px);
+      background:rgba(10,10,10,.92);color:#fff;padding:9px 22px;border-radius:999px;
+      font-size:.78rem;font-weight:500;z-index:9999;opacity:0;
+      transition:opacity .25s,transform .25s;pointer-events:none;
+      white-space:nowrap;backdrop-filter:blur(8px);
+    }
+    .toast.show { opacity:1;transform:translateX(-50%) translateY(0); }
+    @media(min-width:769px){ .toast{bottom:40px;} }
+
+    /* 搜尋無結果 */
+    .no-results {
+      display:none;text-align:center;padding:48px 20px;
+      font-size:.85rem;color:var(--g4);grid-column:1/-1;
+    }
+    .gc.hidden { display:none; }
   </style>
 </head>
 <body>
@@ -182,7 +200,7 @@
   </nav>
   <div class="top__search">
     <span class="material-symbols-outlined">search</span>
-    <input type="text" placeholder="搜尋建案…"/>
+    <input type="text" placeholder="搜尋建案…" oninput="filterCards(this.value)" id="search-input"/>
   </div>
 </header>
 
@@ -213,7 +231,7 @@
     <div class="grid">
 
       <!-- 湖芯AIT -->
-      <a class="gc g-large a d3" href="diary-huxin.html">
+      <a class="gc g-large a d3" href="diary-huxin.html" data-id="huxin" data-search="湖芯 AIT 內湖 星雲重劃區 三房 36坪 捷運 日式清水模">
         <div class="gc__ph">
           <img src="https://lh3.googleusercontent.com/aida/ADBb0ugklxDN6UbvaP3YZ5FNccIVX8xakDaDBt2BvnXRteeQAxeFazhtQajtzT_zYV5uPfajplWml9eazRi4znVkiOtqWr-bJoyYAsA0UNZ65o9Dv4gLZDwpejkIAclGs8_BZwbYozWYhXLUCF6UX0YkSj8YGO9GnfW7nGVwi7WU3LNtDEYvws_P7EjYLP30KVuH0sBxYug7Umh3WVcLhYPzGUKtsVwBH747mE6KE11YyzmLSRzYLjQMFSvuDvPQDLq8nLaCcoNUT0Gl3A" alt="湖芯AIT"/>
         </div>
@@ -227,7 +245,7 @@
       </a>
 
       <!-- 昇樺知玉 -->
-      <a class="gc a d4" href="diary-shenghua.html">
+      <a class="gc a d4" href="diary-shenghua.html" data-id="shenghua" data-search="昇樺知玉 石牌 北投 承德路 學區 陽明山 34坪 三房">
         <div class="gc__ph">
           <img src="shenghua.jpg" alt="昇樺知玉"/>
         </div>
@@ -240,7 +258,7 @@
       </a>
 
       <!-- 大湖之境（即將） -->
-      <a class="gc a d5" href="#">
+      <a class="gc a d5" href="#" data-id="dahujing" data-search="大湖之境 內湖 捷運 三房 36坪 即將上架">
         <div class="gc__ph">
           <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuBW2LtfLxDw_xtO9kvKBxIEhZxuGeDJMs0Kt9_vhRfaXuEuVtszq_B4QKne7Y_HFfk1972f3dXkXF3coHFEgtWVe113Ofb1oPEKsL9YKhagmuu3nSrjNRRWkW_Uvat9YkYJdo3sslQeluHpLjU4A8qAKoPVyVqXQeOqgcpeLbGj8w9z5t4R_7BcN4VNc11Hsk8eXxED_PP1YbPVMzN1BgASmtzsMIwLXTzAjEbKyRRqkJHU6P83j8mr72ErCgqQ3e3If93_n2SGO10" alt="大湖之境"/>
         </div>
@@ -252,6 +270,7 @@
         </div>
       </a>
 
+      <div class="no-results" id="no-results">找不到符合的建案，試試其他關鍵字</div>
     </div>
   </div>
 
@@ -262,11 +281,14 @@
       <h2 class="callout__ttl">每週精選建案<br/>策展人報告書</h2>
     </div>
     <div class="callout__frm">
-      <input class="callout__inp" type="email" placeholder="輸入 Email…"/>
-      <button class="callout__btn">訂閱週報</button>
+      <input class="callout__inp" type="email" placeholder="輸入 Email…" id="newsletter-email"/>
+      <button class="callout__btn" onclick="subscribeNewsletter()">訂閱週報</button>
     </div>
   </div>
 </main>
+
+<!-- Toast -->
+<div id="toast" class="toast"></div>
 
 <nav class="bnav">
   <a class="ni on" href="index.html">
@@ -292,9 +314,68 @@
 </button>
 
 <script>
+  /* ══ TOAST ══ */
+  let _toastTimer;
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(()=>t.classList.remove('show'), 2400);
+  }
+
+  /* ══ BOOKMARK + LOCALSTORAGE ══ */
+  const SAVED_KEY = 'house-hunter-saved';
+  function getSaved() { try { return JSON.parse(localStorage.getItem(SAVED_KEY)||'[]'); } catch { return []; } }
+  function setSaved(arr) { try { localStorage.setItem(SAVED_KEY, JSON.stringify(arr)); } catch {} }
+
   function toggleSave(btn, e) {
     e.preventDefault(); e.stopPropagation();
-    btn.classList.toggle('saved');
+    const card = btn.closest('[data-id]');
+    const id = card ? card.dataset.id : null;
+    const isSaved = btn.classList.toggle('saved');
+    if (id) {
+      let saved = getSaved();
+      saved = isSaved ? [...new Set([...saved, id])] : saved.filter(s=>s!==id);
+      setSaved(saved);
+    }
+    showToast(isSaved ? '已加入收藏 ✓' : '已從收藏移除');
+  }
+
+  /* Restore saved state on load */
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = getSaved();
+    document.querySelectorAll('[data-id]').forEach(card => {
+      if (saved.includes(card.dataset.id)) {
+        card.querySelector('.gc__bk')?.classList.add('saved');
+      }
+    });
+  });
+
+  /* ══ SEARCH / FILTER ══ */
+  function filterCards(q) {
+    const query = q.trim().toLowerCase();
+    const cards = document.querySelectorAll('.gc');
+    let visible = 0;
+    cards.forEach(c => {
+      const text = ((c.dataset.search || '') + ' ' + c.textContent).toLowerCase();
+      const show = !query || text.includes(query);
+      c.classList.toggle('hidden', !show);
+      if (show) visible++;
+    });
+    let noRes = document.getElementById('no-results');
+    if (noRes) noRes.style.display = (!query || visible > 0) ? 'none' : 'block';
+  }
+
+  /* ══ NEWSLETTER ══ */
+  function subscribeNewsletter() {
+    const inp = document.getElementById('newsletter-email');
+    const email = inp.value.trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showToast('請輸入有效的 Email 地址');
+      inp.focus(); return;
+    }
+    showToast('訂閱成功！每週建案報告書將寄到您的信箱 ✓');
+    inp.value = '';
   }
 </script>
 </body>
